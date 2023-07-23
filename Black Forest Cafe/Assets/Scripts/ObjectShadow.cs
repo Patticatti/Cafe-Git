@@ -3,7 +3,7 @@ using UnityEngine;
 public class ObjectShadow : MonoBehaviour
 {
 
-    public Vector3 Offset = new Vector3(0f, 0f);
+    public Vector3 Offset = new Vector3(0f, -1f);
     private SpriteRenderer sr;
     private SpriteRenderer render;
 

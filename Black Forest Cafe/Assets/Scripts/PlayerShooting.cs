@@ -15,38 +15,16 @@ public class PlayerShooting : MonoBehaviour
 
     private GameObject bulletcopy;
 
-    private void LateUpdate()
+
+    private void Update()
     {
-        if ((distance < 10) && (timer >= atkSpeed) && (Input.GetMouseButton(0)))
+        //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //distance = Vector2.Distance(transform.position, mousePosition);
+        if ( (timer >= atkSpeed) && (Input.GetMouseButton(0)))
         {
-            Debug.Log("shoot");
             timer = 0;
-            Instantiate(bullet, bulletPos.position, Quaternion.identity);
+            Instantiate(bullet, bulletPos.position, Quaternion.identity, transform);
         }
         timer += Time.deltaTime;
     }
-    /*
-    private IEnumerator ManualShoot()
-    {
-        while ((!Input.GetMouseButton(0)))
-        {
-            yield return null;
-        }
-        Instantiate(bullet, bulletPos.position, Quaternion.identity);
-    }
-
-        private IEnumerator ManualShoot()
-        {
-            for (; ; )
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    waitForShoot = false;
-                    Instantiate(bullet, bulletPos.position, Quaternion.identity);
-                    break;
-                }
-                yield return null;
-            }
-            yield return null;
-        }*/
 }

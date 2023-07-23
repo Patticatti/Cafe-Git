@@ -7,23 +7,23 @@ public class PlayerArrowScript : MonoBehaviour
     private GameObject enemy;
 
     private Rigidbody2D rb;
-    public float force = 12f;
+    public float force = 1f;
     private float timer;
     private Vector3 mousePos;
 
-    // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Vector3 direction;
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = mousePos - transform.position;
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
 
+        rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+        Debug.Log("velocity");
+        Debug.Log(rb.velocity);
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot + 90);
     }
-    // Update is called once per frame
     private void Update()
     {
         timer += Time.deltaTime;
@@ -32,13 +32,13 @@ public class PlayerArrowScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    /*
+
     private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        if ((other.gameObject.CompareTag("Enemy")) || (other.gameObject.CompareTag("Terrain")))
+        if ((other.gameObject.CompareTag("Enemy")))
         {
             Destroy(gameObject);
-            //if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent)) //checks to see if has enemy game object
+
         }
-    }*/
+    }
 }
