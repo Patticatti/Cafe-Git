@@ -3,7 +3,7 @@ using UnityEngine;
 public class ProjectileShadow : MonoBehaviour
 {
 
-    public Vector3 Offset = new Vector3(0f, 0f);
+    public Vector3 Offset = new Vector3(0f, -0.2f);
     private SpriteRenderer sr;
     private SpriteRenderer render;
     private float timer = 0;
@@ -13,9 +13,9 @@ public class ProjectileShadow : MonoBehaviour
     private void Start()
     {
         _shadow = new GameObject("Shadow");
-        //_shadow.transform.parent = transform;
-       // _shadow.transform.position = transform.position + Offset;
-       // _shadow.transform.rotation = transform.rotation;
+        _shadow.transform.parent = transform;
+        _shadow.transform.position = transform.position + Offset;
+        _shadow.transform.rotation = transform.rotation;
 
         render = GetComponent<SpriteRenderer>();
         sr = _shadow.AddComponent<SpriteRenderer>();

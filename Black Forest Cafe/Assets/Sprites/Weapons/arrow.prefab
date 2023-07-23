@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4269411739862989125}
   - component: {fileID: 3274488484152545358}
   - component: {fileID: 7394520423674939390}
-  - component: {fileID: 8195979002263519863}
+  - component: {fileID: -2008712128722097402}
   - component: {fileID: -765080703139175535}
   m_Layer: 0
   m_Name: arrow
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4269411739862989125
 SpriteRenderer:
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.031477034, y: 0.3108353}
+  m_Offset: {x: -0.03360918, y: 0.3150996}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.35472167, y: 0.3783294}
+  m_Size: {x: 0.28222853, y: 0.2589289}
   m_EdgeRadius: 0
 --- !u!50 &7394520423674939390
 Rigidbody2D:
@@ -160,7 +160,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &8195979002263519863
+--- !u!114 &-2008712128722097402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95026916fd978164181c390c73859d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 1
+  force: 8
 --- !u!114 &-765080703139175535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,9 +180,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5738085176451089552}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bbc927bb2a86c74386408ddec302952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: {x: 0, y: 0, z: 0}
+  Offset: {x: 0, y: -0.2, z: 0}
