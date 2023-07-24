@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1725955488849065222}
   - component: {fileID: 3298802317392734866}
-  - component: {fileID: 4791245840004476120}
   - component: {fileID: 5033917181447571768}
+  - component: {fileID: 4791245840004476120}
   m_Layer: 0
   m_Name: tree2
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +86,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5033917181447571768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019984421326326207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7b811674cfdc849b6131f54ffeac2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &4791245840004476120
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,16 +143,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8086002, y: 0.3834095}
   m_EdgeRadius: 0
---- !u!114 &5033917181447571768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2019984421326326207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f7b811674cfdc849b6131f54ffeac2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}

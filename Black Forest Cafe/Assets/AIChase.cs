@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AIChase : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     public float timer;
     public float force = 3f;
 
@@ -17,6 +17,7 @@ public class AIChase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame

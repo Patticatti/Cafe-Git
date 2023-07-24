@@ -20,24 +20,29 @@ public class SortingLayer : MonoBehaviour
         render = player.GetComponent<SpriteRenderer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other) //disappear on hit
+    private void Update() //disappear on hit
     {
         distance = Vector2.Distance(transform.position, player.transform.position);
-        direction = player.transform.position - transform.position;
-        if (direction.y > 0)
+        if (distance < 1)
         {
-            sr.sortingLayerName = render.sortingLayerName;
-            sr.sortingOrder = render.sortingOrder - 1;
+            direction = player.transform.position - transform.position;
+            if (direction.y > 0)
+            {
+                sr.sortingLayerName = render.sortingLayerName;
+                sr.sortingOrder = render.sortingOrder + 1;
+                sr.color = new Color(1f, 1f, 1f, .5f);
+            }
+            else
+            {
+                sr.sortingLayerName = render.sortingLayerName;
+                sr.sortingOrder = render.sortingOrder - 1;
+                sr.color = new Color(1f, 1f, 1f, 1f);
+            }
         }
         else
         {
-            sr.sortingLayerName = render.sortingLayerName;
-            sr.sortingOrder = render.sortingOrder + 1;
             sr.color = new Color(1f, 1f, 1f, 1f);
-        }
-        if ((other.gameObject.CompareTag("Player")))
-        {
-            sr.color = new Color(1f, 1f, 1f, .5f);
+            sr.sortingOrder = render.sortingOrder - 1;
         }
     }
 }

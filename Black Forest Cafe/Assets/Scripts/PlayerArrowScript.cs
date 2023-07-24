@@ -41,6 +41,10 @@ public class PlayerArrowScript : MonoBehaviour
             Destroy(gameObject);
             //if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent)) //checks to see if has enemy game object
         }
+        else if ((other.gameObject.CompareTag("Terrain")))
+        {
+            Destroy(gameObject);
+        }
     }/*
 
     private void OnCollisionEnter2D(Collision2D collision) //disappear on hit

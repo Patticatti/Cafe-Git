@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5986645630215460452}
   - component: {fileID: 6160836995594783425}
   - component: {fileID: 986220904090794424}
+  - component: {fileID: 2031755989729280968}
   m_Layer: 0
   m_Name: tree3
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6160836995594783425
 SpriteRenderer:
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3746429, y: 0.20100659}
   m_EdgeRadius: 0
+--- !u!114 &2031755989729280968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268162127258507776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7b811674cfdc849b6131f54ffeac2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
