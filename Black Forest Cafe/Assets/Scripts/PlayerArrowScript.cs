@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletScript : MonoBehaviour
+public class PlayerArrowScript : MonoBehaviour
 {
     private GameObject enemy;
 
@@ -11,6 +11,7 @@ public class PlayerBulletScript : MonoBehaviour
     private float timer;
     private Vector3 mousePos;
     private Vector3 direction;
+    private Enemy enemyComponent;
 
     // Start is called before the first frame update
     private void Start()
@@ -31,13 +32,23 @@ public class PlayerBulletScript : MonoBehaviour
         }
     }
 
-
-    private void OnCollisionEnter2D(Collider2D collision) //disappear on hit
+    private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        if (collision.gameObject.TryGetComponent<enemy>(out Enemy enemyComponent))
+        if ((other.gameObject.CompareTag("Enemy")))
+        {
+            enemyComponent = other.GetComponent<Enemy>();
+            enemyComponent.TakeDamage(1);
+            Destroy(gameObject);
+            //if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent)) //checks to see if has enemy game object
+        }
+    }/*
+
+    private void OnCollisionEnter2D(Collision2D collision) //disappear on hit
+    {
+        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent))
         {
             enemyComponent.TakeDamage(1);
         }
         Destroy(gameObject);
-    }
+    }*/
 }
