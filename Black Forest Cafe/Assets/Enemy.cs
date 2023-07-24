@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private PlayerHealth playerComponent;
 
-    [SerializeField] float health, maxHealth = 10f;
+    [SerializeField] float health, maxHealth = 5f;
     private void Start()
     {
         health = maxHealth;
@@ -14,16 +15,19 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         health = health - damageAmount;
-        Debug.Log("damaged");
-        Debug.Log(health);
         if (health <= 0)
         {
             Destroy(gameObject);
         }
     }
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        
+        if ((other.gameObject.CompareTag("Player")))
+        {
+            playerComponent = other.GetComponent<PlayerHealth>();
+            playerComponent.TakeDamage(1f);
+        }
     }
 }
+    // Update is called once per frame

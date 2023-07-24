@@ -69,7 +69,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        {
+        {/*
+            if (anim.GetInteger("state") == 6)
+            {
+                if ((aimAngle < -180f) || (aimAngle > 0))
+                {
+                    sprite.flipX = true;//aim left
+                }
+                else
+                {
+                    sprite.flipX = false;
+                }
+                anim.SetInteger("state", 2);
+                return;
+            }*/
             if (dirY > 0f) //up
             {
                 if (isDashing == true)

@@ -40,7 +40,6 @@ public class PlayerArrowScript : MonoBehaviour
             if ((other.gameObject.CompareTag("Enemy")))
             {
                 triggered = true;
-                Debug.Log("triggered");
                 enemyComponent = other.GetComponent<Enemy>();
                 enemyComponent.TakeDamage(1f);
                 Destroy(gameObject);

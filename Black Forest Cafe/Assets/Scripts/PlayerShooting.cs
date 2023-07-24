@@ -26,7 +26,7 @@ public class PlayerShooting : MonoBehaviour
     {
         //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //distance = Vector2.Distance(transform.position, mousePosition);
-        if ( (timer >= atkSpeed) && (Input.GetMouseButton(0)))
+        if ((timer >= atkSpeed) && (Input.GetMouseButton(0)))
         {
             anim.SetInteger("state", 6);
             timer = 0;
