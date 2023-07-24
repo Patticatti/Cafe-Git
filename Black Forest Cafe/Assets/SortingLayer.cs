@@ -9,40 +9,55 @@ public class SortingLayer : MonoBehaviour
     private SpriteRenderer sr;
     private SpriteRenderer render;
     private Vector3 direction;
-    private float distance;
 
 
     // Start is called before the first frame update
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        render = player.GetComponent<SpriteRenderer>();
     }
 
-    private void Update() //disappear on hit
+    private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        if (distance < 1)
+        if ((other.gameObject.CompareTag("Player")))
         {
-            direction = player.transform.position - transform.position;
-            if (direction.y > 0)
+            render = other.GetComponent<SpriteRenderer>();
+        }
+        else if ((other.gameObject.CompareTag("Enemy")))
+        {
+            render = other.GetComponent<SpriteRenderer>();
+        }
+        direction = other.transform.position - transform.position;
+    }
+
+    private void OnTriggerStay2D(Collider2D other) //disappear on hit
+    {
+        if (direction.y > 0) //above
+        {
+            sr.sortingLayerName = render.sortingLayerName;
+            sr.sortingOrder = render.sortingOrder + 1;
+            if (other.gameObject.CompareTag("Player"))
             {
-                sr.sortingLayerName = render.sortingLayerName;
-                sr.sortingOrder = render.sortingOrder + 1;
                 sr.color = new Color(1f, 1f, 1f, .5f);
             }
-            else
+            else 
             {
-                sr.sortingLayerName = render.sortingLayerName;
-                sr.sortingOrder = render.sortingOrder - 1;
                 sr.color = new Color(1f, 1f, 1f, 1f);
+                sr.sortingLayerName = render.sortingLayerName;
+                sr.sortingOrder = render.sortingOrder + 1;
             }
         }
         else
         {
-            sr.color = new Color(1f, 1f, 1f, 1f);
+            sr.sortingLayerName = render.sortingLayerName;
             sr.sortingOrder = render.sortingOrder - 1;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other) //disappear on hit
+    {
+        sr.color = new Color(1f, 1f, 1f, 1f);
+        sr.sortingOrder = render.sortingOrder - 1;
+    }
+
 }
