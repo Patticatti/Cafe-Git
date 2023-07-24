@@ -12,6 +12,7 @@ public class PlayerArrowScript : MonoBehaviour
     private Vector3 mousePos;
     private Vector3 direction;
     private Enemy enemyComponent;
+    private bool triggered = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -34,25 +35,20 @@ public class PlayerArrowScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        if ((other.gameObject.CompareTag("Enemy")))
+        if (triggered == false)
         {
-            enemyComponent = other.GetComponent<Enemy>();
-            enemyComponent.TakeDamage(1);
-            Destroy(gameObject);
-            //if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent)) //checks to see if has enemy game object
+            if ((other.gameObject.CompareTag("Enemy")))
+            {
+                triggered = true;
+                Debug.Log("triggered");
+                enemyComponent = other.GetComponent<Enemy>();
+                enemyComponent.TakeDamage(1f);
+                Destroy(gameObject);
+            }
+            else if ((other.gameObject.CompareTag("Terrain")))
+            {
+                Destroy(gameObject);
+            }
         }
-        else if ((other.gameObject.CompareTag("Terrain")))
-        {
-            Destroy(gameObject);
-        }
-    }/*
-
-    private void OnCollisionEnter2D(Collision2D collision) //disappear on hit
-    {
-        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent))
-        {
-            enemyComponent.TakeDamage(1);
-        }
-        Destroy(gameObject);
-    }*/
+    }
 }

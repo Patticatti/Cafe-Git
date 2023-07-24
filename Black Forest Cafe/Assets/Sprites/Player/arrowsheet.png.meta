@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 00b5ef948482c3f43b27ff41ed5196f3
+guid: b5240a6121d63b342ad2a86b02d29a3f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,28 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: characterdash_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 12ca526f4da42d242a02234bbeb28a81
-      internalID: -226192464
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: characterdash_1
+      name: arrowsheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -145,8 +124,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62a559136f5c3c24984ee4a54c0dc666
-      internalID: 251734201
+      spriteID: f3818271f181e784cad30a8abcb19061
+      internalID: -370663141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrowsheet_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3070ef72de0a1ae4b8f4cf037060455e
+      internalID: 1075025202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrowsheet_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2a0fbd129a098c41aecd3cadc5ff70f
+      internalID: 1384072774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrowsheet_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30fbccd645166554eac373741a63fca1
+      internalID: -1266046204
       vertices: []
       indices: 
       edges: []
@@ -162,8 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      characterdash_0: -226192464
-      characterdash_1: 251734201
+      arrowsheet_0: -370663141
+      arrowsheet_1: 1075025202
+      arrowsheet_2: 1384072774
+      arrowsheet_3: -1266046204
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

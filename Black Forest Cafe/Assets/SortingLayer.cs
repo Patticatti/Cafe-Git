@@ -19,45 +19,35 @@ public class SortingLayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        if ((other.gameObject.CompareTag("Player")))
-        {
-            render = other.GetComponent<SpriteRenderer>();
-        }
-        else if ((other.gameObject.CompareTag("Enemy")))
-        {
-            render = other.GetComponent<SpriteRenderer>();
-        }
-        direction = other.transform.position - transform.position;
+          render = other.GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerStay2D(Collider2D other) //disappear on hit
     {
-        if (direction.y > 0) //above
+        if (render != null)
         {
-            sr.sortingLayerName = render.sortingLayerName;
-            sr.sortingOrder = render.sortingOrder + 1;
-            if (other.gameObject.CompareTag("Player"))
+            direction = other.transform.position - transform.position;
+            if (direction.y > 0) //above
             {
-                sr.color = new Color(1f, 1f, 1f, .5f);
-            }
-            else 
-            {
-                sr.color = new Color(1f, 1f, 1f, 1f);
                 sr.sortingLayerName = render.sortingLayerName;
                 sr.sortingOrder = render.sortingOrder + 1;
+                sr.color = new Color(1f, 1f, 1f, .5f);
             }
-        }
-        else
-        {
-            sr.sortingLayerName = render.sortingLayerName;
-            sr.sortingOrder = render.sortingOrder - 1;
+            else
+            {
+                sr.sortingLayerName = render.sortingLayerName;
+                sr.sortingOrder = render.sortingOrder - 1;
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) //disappear on hit
     {
-        sr.color = new Color(1f, 1f, 1f, 1f);
-        sr.sortingOrder = render.sortingOrder - 1;
+        if (render != null)
+        {
+            sr.color = new Color(1f, 1f, 1f, 1f);
+            sr.sortingOrder = render.sortingOrder - 1;
+        }
     }
 
 }
