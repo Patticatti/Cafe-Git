@@ -69,19 +69,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        if (isDashing == true)
-        {
-            anim.SetInteger("state", 4);
-        }
-        else 
         {
             if (dirY > 0f) //up
             {
-                anim.SetInteger("state", 3);
+                if (isDashing == true)
+                {
+                    anim.SetInteger("state", 5);
+                }
+                else
+                {
+                    anim.SetInteger("state", 3);
+                }
             }
             else
             {
-                anim.SetInteger("state", 2);
+                if (isDashing == true)
+                {
+                    anim.SetInteger("state", 4);
+                }
+                else
+                {
+                    anim.SetInteger("state", 2);
+                }
             }
         }
         if (dirX < 0f) //left

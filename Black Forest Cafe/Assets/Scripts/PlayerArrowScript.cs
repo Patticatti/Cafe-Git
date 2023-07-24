@@ -22,7 +22,6 @@ public class PlayerBulletScript : MonoBehaviour
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot + 90);
     }
-    // Update is called once per frame
     private void Update()
     {
         timer += Time.deltaTime;
@@ -33,12 +32,12 @@ public class PlayerBulletScript : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other) //disappear on hit
+    private void OnCollisionEnter2D(Collider2D collision) //disappear on hit
     {
-        if ((other.gameObject.CompareTag("Enemy")))
+        if (collision.gameObject.TryGetComponent<enemy>(out Enemy enemyComponent))
         {
-            Destroy(gameObject);
-            //if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent)) //checks to see if has enemy game object
+            enemyComponent.TakeDamage(1);
         }
+        Destroy(gameObject);
     }
 }
