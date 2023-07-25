@@ -12,6 +12,15 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     [Range(0.1f, 1)]
     private float roomPercent = 0.8f;
 
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary
+        = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
+
+    private HashSet<Vector2Int> floorPositions, corridorPositions;
+
+    //Gizmos Data
+    //private List<Color> roomColors = new List<Color>();
+
+
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
@@ -75,15 +84,28 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent); //count of rooms want to geenrate
 
         List<Vector2Int> roomsToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList(); //creates unique id for positions
-        
+        ClearRoomData();
         foreach (var roomPosition in roomsToCreate)
         {
             var roomFloor = RunRandomWalk(randomWalkParameters, roomPosition);
+
+            SaveRoomData(roomPosition, roomFloor);
             roomPositions.UnionWith(roomFloor); //avoid repetitions in collection
         }
         return roomPositions;
     }
 
+    private void SaveRoomData(Vector2Int roomPosition, HashSet<Vector2Int> roomFloor)
+    {
+        roomsDictionary[roomPosition] = roomFloor;
+        //roomColors.Add(UnityEngine.Random.ColorHSV());
+    }
+
+    private void ClearRoomData() 
+    {
+        roomsDictionary.Clear();
+        //roomColors.Clear();
+    }
 
     private void CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
@@ -97,5 +119,6 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             potentialRoomPositions.Add(currentPosition);
             floorPositions.UnionWith(corridor);
         }
+        corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
     }
 }
