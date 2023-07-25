@@ -34,7 +34,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
         CreateCorridors(floorPositions, potentialRoomPositions);
 
-        HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions);
+        HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions); //rooms
 
         List<Vector2Int> deadEnds = FindAllDeadEnds(floorPositions);
 
@@ -50,7 +50,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     {
         foreach (var position in deadEnds)
         {
-            if(roomFloors.Contains(position) == false) //real dead end
+            if (roomFloors.Contains(position) == false) //real dead end
             {
                 var room = RunRandomWalk(randomWalkParameters, position);
                 roomFloors.UnionWith(room);
@@ -67,9 +67,9 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             int neighboursCount = 0;
             foreach (var direction in Direction2D.cardinalDirectionsList)
             {
-                if(floorPositions.Contains(position + direction))
+                if (floorPositions.Contains(position + direction))
                     neighboursCount++;
-        
+
             }
             if (neighboursCount == 1)
                 deadEnds.Add(position);
@@ -85,12 +85,12 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
         List<Vector2Int> roomsToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList(); //creates unique id for positions
         ClearRoomData();
-        foreach (var roomPosition in roomsToCreate)
+        foreach (var roomPosition in roomsToCreate) //room number
         {
-            var roomFloor = RunRandomWalk(randomWalkParameters, roomPosition);
+            var floorPositions = RunRandomWalk(randomWalkParameters, roomPosition);
 
-            SaveRoomData(roomPosition, roomFloor);
-            roomPositions.UnionWith(roomFloor); //avoid repetitions in collection
+            SaveRoomData(roomPosition, floorPositions); //room number, floortile locations
+            roomPositions.UnionWith(floorPositions); //avoid repetitions in collection
         }
         return roomPositions;
     }
@@ -101,7 +101,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         //roomColors.Add(UnityEngine.Random.ColorHSV());
     }
 
-    private void ClearRoomData() 
+    private void ClearRoomData()
     {
         roomsDictionary.Clear();
         //roomColors.Clear();
@@ -111,12 +111,23 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     {
         var currentPosition = startPosition;
         potentialRoomPositions.Add(currentPosition);
+        bool newCorridor;
 
         for (int i = 0; i < corridorCount; i++)
         {
             var corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(currentPosition, corridorLength);
+            newCorridor = false;
+            while (newCorridor == false) //keep generating until get amount of corridors
+            {
+                corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(currentPosition, corridorLength);
+                if (!floorPositions.Contains(corridor[corridor.Count - 1]))
+                {
+                    newCorridor = true;
+                    Debug.Log("added corridor");
+                }
+            }
             currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected
-            potentialRoomPositions.Add(currentPosition);
+            potentialRoomPositions.Add(currentPosition);//only add if not yet, make sure to keep iterating if 
             floorPositions.UnionWith(corridor);
         }
         corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
