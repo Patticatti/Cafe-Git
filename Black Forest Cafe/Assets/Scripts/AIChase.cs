@@ -24,7 +24,7 @@ public class AIChase : MonoBehaviour
     private void Update()
     {
         distance = Vector2.Distance(transform.position, player.transform.position);
-        if (distance <= 20)
+        if (distance <= 5)
         {
             direction = player.transform.position - transform.position;
             if (direction.x < 0)

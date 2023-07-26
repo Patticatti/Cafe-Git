@@ -20,7 +20,7 @@ public class ItemPlacement
         foreach (var position in floorPositionsNoCorridor) 
         {
             neighboursCount8Dir = graph.GetNeighbours8Directions(position).Count; //amount of neighbours
-            PlacementType type = neighboursCount8Dir < 7 ? PlacementType.NearWall : PlacementType.OpenSpace; //set type either near or not
+            PlacementType type = neighboursCount8Dir < 8 ? PlacementType.NearWall : PlacementType.OpenSpace; //set type either near or not
 
 
             if (tileByType.ContainsKey(type) == false) //doesnt exist yet
@@ -59,6 +59,33 @@ public class ItemPlacement
         return randomSpots;
     }
 
+
+    public List<Vector2Int> GetRandomSpotsForEnemies(HashSet<Vector2Int> floorPositions, int count)
+    {
+        List<Vector2Int> randomSpots = new List<Vector2Int>();
+
+        if (tileByType.TryGetValue(PlacementType.OpenSpace, out HashSet<Vector2Int> openSpacePositions))
+        {
+            int availableCount = openSpacePositions.Count;
+            List<Vector2Int> openSpaceList = openSpacePositions.ToList();
+
+            if (availableCount <= count)
+            {
+                randomSpots.AddRange(openSpaceList);
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    int randomIndex = Random.Range(0, openSpaceList.Count);
+                    randomSpots.Add(openSpaceList[randomIndex]);
+                    openSpaceList.RemoveAt(randomIndex);
+                }
+            }
+        }
+
+        return randomSpots;
+    }
 
     public enum PlacementType
     {
