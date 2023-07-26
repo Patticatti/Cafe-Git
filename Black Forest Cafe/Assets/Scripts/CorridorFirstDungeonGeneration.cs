@@ -11,7 +11,6 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     [SerializeField]
     [Range(0.1f, 1)]
     private float roomPercent = 0.8f;
-
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary
         = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
 
@@ -19,7 +18,6 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
     //Gizmos Data
     //private List<Color> roomColors = new List<Color>();
-
 
     protected override void RunProceduralGeneration()
     {
@@ -110,6 +108,44 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     private void CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
         var currentPosition = startPosition;
+        int corridorAmnt = 0;
+
+        CreateTwoCorridors(floorPositions, potentialRoomPositions, corridorAmnt, currentPosition);
+    }
+
+
+    private void CreateTwoCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions, int corridorAmnt, Vector2Int originPoint)
+    {
+        var currentPosition = originPoint;
+        potentialRoomPositions.Add(currentPosition);
+        bool newCorridor;
+        corridorAmnt++;
+
+        for (int i = 0; i < 2; i++)
+        {
+            var corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(originPoint, corridorLength);
+            newCorridor = false;
+            while (newCorridor == false) //keep generating until get amount of corridors
+            {
+                corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(originPoint, corridorLength);
+                if (!floorPositions.Contains(corridor[corridor.Count - 1]))
+                    newCorridor = true;
+            }
+            currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected, current pos is the end it will start off of
+            potentialRoomPositions.Add(currentPosition);//only add if not yet, make sure to keep iterating if 
+            floorPositions.UnionWith(corridor);
+        }
+        if (corridorAmnt < corridorCount)
+        {
+            CreateTwoCorridors(floorPositions, potentialRoomPositions, corridorAmnt, currentPosition);
+        }
+
+        corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
+    }
+    /*
+    private void CreateTwoCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
+    {
+        var currentPosition = startPosition;
         potentialRoomPositions.Add(currentPosition);
         bool newCorridor;
 
@@ -121,15 +157,12 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             {
                 corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(currentPosition, corridorLength);
                 if (!floorPositions.Contains(corridor[corridor.Count - 1]))
-                {
                     newCorridor = true;
-                    Debug.Log("added corridor");
-                }
             }
-            currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected
+            currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected, current pos is the end it will start off of
             potentialRoomPositions.Add(currentPosition);//only add if not yet, make sure to keep iterating if 
             floorPositions.UnionWith(corridor);
         }
         corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
-    }
+    }*/
 }

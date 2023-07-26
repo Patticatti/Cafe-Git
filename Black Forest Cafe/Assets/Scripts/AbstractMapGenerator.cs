@@ -9,6 +9,8 @@ public abstract class AbstractMapGenerator : MonoBehaviour
     protected TilemapVisualizer tilemapVisualizer = null;
     [SerializeField]
     protected Vector2Int startPosition = Vector2Int.zero;
+    [SerializeField]
+    protected Transform player;
 
     public void GenerateDungeon() //call from anywhere else to generate dungeon itself
     {
