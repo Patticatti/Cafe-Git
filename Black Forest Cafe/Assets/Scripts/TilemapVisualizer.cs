@@ -10,7 +10,6 @@ public class TilemapVisualizer : MonoBehaviour
     [SerializeField]
     private TileBase floorTile,wallTop; //tile we can paint on our tile map
 
-
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
         PaintTiles(floorPositions, floorTilemap, floorTile);

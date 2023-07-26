@@ -19,5 +19,6 @@ public abstract class AbstractMapGenerator : MonoBehaviour
     }
 
     protected abstract void RunProceduralGeneration(); //generate tilemap according to chosen algorithm
+
 }
 

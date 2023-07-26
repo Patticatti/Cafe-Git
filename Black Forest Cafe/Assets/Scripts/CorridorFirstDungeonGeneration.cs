@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.Events;
 
 public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 {
@@ -12,10 +13,19 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     [SerializeField]
     [Range(0.1f, 1)]
     private float roomPercent = 0.8f;
-    private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary
-        = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
+   
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
+    [SerializeField]
+    private GameObject barrelPrefab;
 
-    private Dictionary<RoomType, HashSet<Vector2Int>> roomKind= new Dictionary<RoomType, HashSet<Vector2Int>>();
+    private Dictionary<RoomType, HashSet<Vector2Int>> roomKind = new Dictionary<RoomType, HashSet<Vector2Int>>()
+    {
+        { RoomType.Empty, new HashSet<Vector2Int>() },
+        { RoomType.Enemy, new HashSet<Vector2Int>() },
+        { RoomType.Random, new HashSet<Vector2Int>() },
+        { RoomType.Treasure, new HashSet<Vector2Int>() },
+        { RoomType.Boss, new HashSet<Vector2Int>() }
+    };
 
     private HashSet<Vector2Int> floorPositions, corridorPositions;
 
@@ -25,15 +35,18 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
+        //AddEnemies();
     }
 
 
     private void CorridorFirstGeneration()
     {
+        EventManager.Instance.generateEvent.Invoke();
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> floorNoCorridor = new HashSet<Vector2Int>();
 
-        CreateCorridors(floorPositions, potentialRoomPositions);
+        CreateCorridors(floorPositions, potentialRoomPositions); //floorPositions will have corridor floor spaces
 
         HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions); //rooms
 
@@ -42,10 +55,28 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         CreateRoomsAtDeadEnd(deadEnds, roomPositions);
 
         floorPositions.UnionWith(roomPositions);
+        AddBarrels();
 
         tilemapVisualizer.PaintFloorTiles(floorPositions);
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
     }
+
+    private void AddBarrels()
+    {
+        List<Vector2Int> barrelSpots = new List<Vector2Int>();
+        foreach (KeyValuePair<Vector2Int, HashSet<Vector2Int>> entry in roomsDictionary)
+        {
+            ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
+            barrelSpots = itemPlacement.GetRandomSpotsNearWall(entry.Value, 5);
+            foreach (var position in barrelSpots)
+            {
+                Instantiate(barrelPrefab, new Vector3(position.x + 0.5f, position.y + 0.5f, 0), Quaternion.identity);
+            }
+            barrelSpots.Clear();
+        }
+    }
+
+
 
     private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
     {
@@ -57,6 +88,11 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
                 roomFloors.UnionWith(room);
             }
         }
+    }
+
+    private HashSet<Vector2Int> floorWithNoCorridor(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> corridorPositions)
+    {
+        return new HashSet<Vector2Int>(floorPositions.Except(corridorPositions));
     }
 
 
@@ -81,7 +117,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
     private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
-        HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> roomPosi = new HashSet<Vector2Int>();
         int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent); //count of rooms want to geenrate
 
         List<Vector2Int> roomsToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList(); //creates unique id for positions
@@ -91,16 +127,16 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             var floorPositions = RunRandomWalk(randomWalkParameters, roomPosition);
 
             SaveRoomData(roomPosition, floorPositions); //room number, floortile locations
-            roomPositions.UnionWith(floorPositions); //avoid repetitions in collection
+            roomPosi.UnionWith(floorPositions); //avoid repetitions in collection
         }
         //AddEnemies(roomPositions);
-        return roomPositions;
+        return roomPosi;
     }
 
 
-    private void SaveRoomData(Vector2Int roomPosition, HashSet<Vector2Int> roomFloor)
+    private void SaveRoomData(Vector2Int roomPosition, HashSet<Vector2Int> floorPositions)
     {
-        roomsDictionary[roomPosition] = roomFloor;
+        roomsDictionary[roomPosition] = floorPositions;
         //roomColors.Add(UnityEngine.Random.ColorHSV());
     }
 
@@ -122,7 +158,6 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
         CreateTwoCorridors(floorPositions, potentialRoomPositions, corridorAmnt, currentPosition);
     }
-
 
     private void CreateTwoCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions, int corridorAmnt, Vector2Int originPoint)
     {
@@ -168,7 +203,6 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         }
 
         corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
-        Debug.Log(roomKind);
     }
 
     public enum RoomType
