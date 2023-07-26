@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 {
@@ -13,6 +14,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     private float roomPercent = 0.8f;
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary
         = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
+
+    private Dictionary<RoomType, HashSet<Vector2Int>> roomKind= new Dictionary<RoomType, HashSet<Vector2Int>>();
 
     private HashSet<Vector2Int> floorPositions, corridorPositions;
 
@@ -90,13 +93,20 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             SaveRoomData(roomPosition, floorPositions); //room number, floortile locations
             roomPositions.UnionWith(floorPositions); //avoid repetitions in collection
         }
+        //AddEnemies(roomPositions);
         return roomPositions;
     }
+
 
     private void SaveRoomData(Vector2Int roomPosition, HashSet<Vector2Int> roomFloor)
     {
         roomsDictionary[roomPosition] = roomFloor;
         //roomColors.Add(UnityEngine.Random.ColorHSV());
+    }
+
+    private void ClearRoomKindData()
+    {
+        roomKind.Clear();
     }
 
     private void ClearRoomData()
@@ -129,11 +139,28 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             {
                 corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(originPoint, corridorLength);
                 if (!floorPositions.Contains(corridor[corridor.Count - 1]))
+                {
                     newCorridor = true;
+                    currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected, current pos is the end it will start off of
+                    potentialRoomPositions.Add(currentPosition);//only add if not yet, make sure to keep iterating if 
+                    floorPositions.UnionWith(corridor);
+                    if (i == 0)
+                    {
+                        roomKind[RoomType.Empty].Add(currentPosition);
+                    }
+                    else
+                    {
+                        if (corridorAmnt < (corridorCount - 1))
+                        {
+                            roomKind[RoomType.Enemy].Add(currentPosition);
+                        }
+                        else
+                        {
+                            roomKind[RoomType.Boss].Add(currentPosition);
+                        }
+                    }
+                }
             }
-            currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected, current pos is the end it will start off of
-            potentialRoomPositions.Add(currentPosition);//only add if not yet, make sure to keep iterating if 
-            floorPositions.UnionWith(corridor);
         }
         if (corridorAmnt < corridorCount)
         {
@@ -141,28 +168,17 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         }
 
         corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
+        Debug.Log(roomKind);
     }
-    /*
-    private void CreateTwoCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
-    {
-        var currentPosition = startPosition;
-        potentialRoomPositions.Add(currentPosition);
-        bool newCorridor;
 
-        for (int i = 0; i < corridorCount; i++)
-        {
-            var corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(currentPosition, corridorLength);
-            newCorridor = false;
-            while (newCorridor == false) //keep generating until get amount of corridors
-            {
-                corridor = ProceduralGenerationAlgorithm.RandomWalkCorridor(currentPosition, corridorLength);
-                if (!floorPositions.Contains(corridor[corridor.Count - 1]))
-                    newCorridor = true;
-            }
-            currentPosition = corridor[corridor.Count - 1]; //set current to last in corridor so connected, current pos is the end it will start off of
-            potentialRoomPositions.Add(currentPosition);//only add if not yet, make sure to keep iterating if 
-            floorPositions.UnionWith(corridor);
-        }
-        corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
-    }*/
+    public enum RoomType
+    {
+        Empty,
+        Enemy,
+        Random,
+        Treasure,
+        Boss
+    }
+
+
 }
