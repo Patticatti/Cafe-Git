@@ -21,21 +21,20 @@ public class PlayerAutoShooting : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void OnShootingAnimationEnd()
+    {
+        anim.SetInteger("state", 0); // Switch to the Idle state (or any other state you want)
+    }
 
     // Replace this with your shooting logic, this is just a simple example
     private void Shoot()
     {
         if (target != null)
         {
-            timer = 0;
             anim.SetInteger("state", 6);
+            timer = 0;
             Instantiate(bullet, bulletPos.position, Quaternion.identity, transform);
 
-        }
-        else
-        {
-            Debug.Log("No target enemy to shoot at.");
-            
         }
     }
 

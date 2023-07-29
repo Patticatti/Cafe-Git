@@ -48,7 +48,6 @@ public class TilemapVisualizer : MonoBehaviour
             {
                 PaintSingleTile(tilemap, floorTile3, position);
             }
-            Debug.Log(randomNum);
         }
     }
 

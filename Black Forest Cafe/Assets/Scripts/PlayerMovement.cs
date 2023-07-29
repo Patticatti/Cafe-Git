@@ -69,104 +69,89 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        {/*
-            if (anim.GetInteger("state") == 6)
+        if (dirY > 0f) //up
+        {
+            if (isDashing == true)
             {
-                if ((aimAngle < -180f) || (aimAngle > 0))
-                {
-                    sprite.flipX = true;//aim left
-                }
-                else
-                {
-                    sprite.flipX = false;
-                }
-                anim.SetInteger("state", 2);
-                return;
-            }*/
-            if (dirY > 0f) //up
-            {
-                if (isDashing == true)
-                {
-                    anim.SetInteger("state", 5);
-                }
-                else
-                {
-                    anim.SetInteger("state", 3);
-                }
+                anim.SetInteger("state", 5);
             }
             else
             {
-                if (isDashing == true)
-                {
-                    anim.SetInteger("state", 4);
-                }
-                else
-                {
-                    anim.SetInteger("state", 2);
-                }
+                anim.SetInteger("state", 3);
             }
         }
-        if (dirX < 0f) //left
+        else
+        {
+            if (isDashing == true)
+            {
+                anim.SetInteger("state", 4);
+            }
+            else
+            {
+                anim.SetInteger("state", 2);
+            }
+        }
+        if (dirX< 0f) //left
         {
             sprite.flipX = true;
         }
         else
-        {
-            sprite.flipX = false;
-        }
+{
+    sprite.flipX = false;
+}
     }
 
     private void FaceMouse()
 
+{
+    if (aimAngle < 45f && aimAngle > -45f) //up
     {
-        if (aimAngle < 45f && aimAngle > -45f) //up
-        {
-            facing = 0;
-            anim.SetInteger("state", 0);
-        }
-        else if (aimAngle > -135f) //right
-        {
-            facing = 3;
-            anim.SetInteger("state", 1);
-            sprite.flipX = false;
-        }
-        else if (aimAngle > -225f)
-        {
-            facing = 1;
-            anim.SetInteger("state", 1);
-        }
-        else //left
-        {
-            facing = 2;
-            anim.SetInteger("state", 1);
-            sprite.flipX = true;
-        }
+        facing = 0;
+        anim.SetInteger("state", 0);
     }
-
-    private void FixedUpdate()
+    else if (aimAngle > -135f) //right
     {
-        if (isDashing)
-        {
-            return;
-        }
-        rb.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * moveSpeed;
-
-        Vector2 aimDirection = mousePosition - rb.position;
-
-
-        aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+        facing = 3;
+        anim.SetInteger("state", 1);
+        sprite.flipX = false;
     }
-
-    private IEnumerator Dash()
+    else if (aimAngle > -225f)
     {
-        canDash = false;
-        isDashing = true;
-        rb.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * dashSpeed;
-        yield return new WaitForSeconds(dashDuration);
-        isDashing = false;
-
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
+        facing = 1;
+        anim.SetInteger("state", 1);
     }
+    else //left
+    {
+        facing = 2;
+        anim.SetInteger("state", 1);
+        sprite.flipX = true;
+    }
+}
+
+private void FixedUpdate()
+{
+    if (isDashing)
+    {
+        return;
+    }
+    rb.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * moveSpeed;
+
+    Vector2 aimDirection = mousePosition - rb.position;
+
+
+    aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+}
+
+private IEnumerator Dash()
+{
+    canDash = false;
+    isDashing = true;
+    rb.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * dashSpeed;
+    yield return new WaitForSeconds(dashDuration);
+    isDashing = false;
+
+    yield return new WaitForSeconds(dashCooldown);
+    canDash = true;
+}
 
 }
