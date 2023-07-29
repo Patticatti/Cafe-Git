@@ -20,6 +20,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     private GameObject barrelPrefab;
     [SerializeField]
     private GameObject enemyPrefab;
+    [SerializeField]
+    private GameObject chestPrefab;
 
     private Dictionary<RoomType, HashSet<Vector2Int>> roomKind = new Dictionary<RoomType, HashSet<Vector2Int>>()
     {
@@ -32,13 +34,10 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
     private HashSet<Vector2Int> floorPositions, corridorPositions;
 
-    //Gizmos Data
-    //private List<Color> roomColors = new List<Color>();
 
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
-        //AddEnemies();
     }
 
 
@@ -66,7 +65,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             corridors[i] = IncreaseCorridorSizeByOne(corridors[i]);
             floorPositions.UnionWith(corridors[i]);
         }
-
+        Instantiate(chestPrefab, new Vector3(0, 3f, 0), Quaternion.identity);
         AddBarrels();
         AddEnemies();
 
@@ -281,8 +280,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         {
             CreateCorridors(newCorritors, floorPositions, potentialRoomPositions, corridorAmnt, currentPosition);
         }
-        return newCorritors;
         corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
+        return newCorritors;
     }
 
     public enum RoomType

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,14 +15,22 @@ public class Enemy : MonoBehaviour
         EventManager.Instance.generateEvent.AddListener(Destroy);
     }
 
+    private void DropItem()
+    {
+        if (Random.value > 0)
+            Debug.Log("dropped item");
+    }
+
     public void TakeDamage(float damageAmount)
     {
         health = health - damageAmount;
         if (health <= 0)
         {
+            DropItem();
             Destroy(gameObject);
         }
     }
+
 
     private void Destroy()
     {
