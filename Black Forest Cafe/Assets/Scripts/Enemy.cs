@@ -7,10 +7,19 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     private PlayerHealth playerComponent;
+    private SpriteRenderer sr;
+    //private Color originalColor;
+    //private const float flashDuration = 0.2f;
+    //private Material originalMaterial;
+   // private Material whiteMaterial;
 
     [SerializeField] float health, maxHealth = 5f;
     private void Start()
     {
+        //sr = GetComponent<SpriteRenderer>();
+        //originalMaterial = sr.material;
+        //whiteMaterial = new Material(Shader.Find("Custom/WhiteFlash"));
+        //whiteMaterial.color = Color.white;
         health = maxHealth;
         EventManager.Instance.generateEvent.AddListener(Destroy);
     }
@@ -23,12 +32,19 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        //sr.material = whiteMaterial;
         health = health - damageAmount;
         if (health <= 0)
         {
             DropItem();
             Destroy(gameObject);
         }
+        //Invoke("ResetSpriteColor", flashDuration);
+    }
+
+    private void ResetSpriteColor()
+    {
+        //sr.material = originalMaterial;
     }
 
 
