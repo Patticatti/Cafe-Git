@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 842123486199192663}
   - component: {fileID: 9103248512140696055}
   - component: {fileID: -3684700231103204568}
+  - component: {fileID: 8037949438952502158}
   m_Layer: 0
   m_Name: itemdrop
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648862666200862422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.1574538, y: -2.338247, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1375945338, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  m_Sprite: {fileID: -1230739009, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,7 +158,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2c6b18f51f96489e6608480880b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  necklaces: []
-  bracelets: []
-  rings: []
-  earrings: []
+  necklaces:
+  - {fileID: 1375945338, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  bracelets:
+  - {fileID: -1230739009, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  rings:
+  - {fileID: -337084979, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  earrings:
+  - {fileID: 2103210833, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  necklace1: {fileID: 1375945338, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  bracelet1: {fileID: -1230739009, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  ring1: {fileID: -337084979, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  earring1: {fileID: 2103210833, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+--- !u!114 &8037949438952502158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648862666200862422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15570bb507ea82940a315021a3b139f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: {fileID: 0}

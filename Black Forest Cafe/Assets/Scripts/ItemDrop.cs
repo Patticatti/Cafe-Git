@@ -16,8 +16,9 @@ public class ItemDrop : MonoBehaviour
     private const float moveDuration = 1f;
     private const float waitDuration = 0.5f;
 
+    private GameObject player;
     [SerializeField]
-    private Transform playerPosition;
+    public Transform playerPosition;
 
     private const float shrinkDuration = 0.5f;
 
@@ -26,32 +27,15 @@ public class ItemDrop : MonoBehaviour
 
     private void Start()
     {
-        stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        player = GameObject.FindWithTag("Player");
+        playerPosition = player.transform;
+        stats = player.GetComponent<PlayerStats>();
+
         sList = GetComponent<SpriteListHolder>();
-        Dictionary<SpriteListHolder.ItemType, List<Sprite>> spriteList = new Dictionary<SpriteListHolder.ItemType, List<Sprite>>();
-        spriteList = sList.spriteLists;
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
-        Sprite randomSprite = GetRandomSprite(spriteList);
-        Debug.Log("worked");
+        Sprite randomSprite = sList.GetRandomSprite();
         sr.sprite = randomSprite;
-    }
-
-    private Sprite GetRandomSprite(Dictionary<SpriteListHolder.ItemType, List<Sprite>> spritesList)
-    {
-        Dictionary<SpriteListHolder.ItemType, List<Sprite>> spriteL = spritesList;
-        if (spriteL.Count == 0)
-        {
-            Debug.LogWarning("The sprite list is empty.");
-            return null;
-        }
-        List<SpriteListHolder.ItemType> keyList = new List<SpriteListHolder.ItemType>(spriteL.Keys);
-        int randomIndex = Random.Range(0, spritesList.Count);
-        SpriteListHolder.ItemType randomKey = keyList[randomIndex];
-        List<Sprite> spriteList = spriteL[randomKey];
-        int randomSpriteIndex = Random.Range(0, spriteList.Count);
-        Sprite randomSprite = spriteList[randomSpriteIndex];
-        return randomSprite;
     }
 
     private void Update()

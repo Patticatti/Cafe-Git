@@ -10,24 +10,16 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sr;
     private PlayerStats stats;
     [SerializeField]
-    private GameObject item;
-    //private Color originalColor;
-    //private const float flashDuration = 0.2f;
-    //private Material originalMaterial;
-   // private Material whiteMaterial;
+    public GameObject item;
 
     [SerializeField] float health, maxHealth = 5f;
     private void Start()
     {
         stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
-        //sr = GetComponent<SpriteRenderer>();
-        //originalMaterial = sr.material;
-        //whiteMaterial = new Material(Shader.Find("Custom/WhiteFlash"));
-        //whiteMaterial.color = Color.white;
         health = maxHealth;
         EventManager.Instance.generateEvent.AddListener(Destroy);
     }
-
+    /*
     private void DropItem()
     {
         if (Random.value <= stats.dropChance)
@@ -35,7 +27,7 @@ public class Enemy : MonoBehaviour
             Instantiate(item, transform);
             Debug.Log("dropped");
         }
-    }
+    }*/
 
     public void TakeDamage(float damageAmount)
     {
@@ -43,7 +35,12 @@ public class Enemy : MonoBehaviour
         health = health - damageAmount;
         if (health <= 0)
         {
-            DropItem();
+            if (Random.value <= stats.dropChance)
+            {
+                GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
+                newItem.transform.parent = null;
+                Debug.Log("dropped");
+            }
             Destroy(gameObject);
         }
         //Invoke("ResetSpriteColor", flashDuration);
