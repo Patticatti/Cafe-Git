@@ -6,11 +6,14 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] float health, maxHealth = 10f;
     private SpriteRenderer sr;
+    private PlayerStats stats;
     private float timer;
     public bool canTakeDmg = true;
 
     private void Start()
     {
+        stats = GetComponent<PlayerStats>();
+        maxHealth = stats.health;
         sr = GetComponent<SpriteRenderer>();
         health = maxHealth;
     }

@@ -1,11 +1,16 @@
 using UnityEngine;
+using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
-public class MoveSpriteUpAndDown : MonoBehaviour
+public class ItemDrop : MonoBehaviour
 {
+    private PlayerStats stats;
     private Vector3 originalPosition;
     private bool isMovingUp = true;
     private bool isWaiting = false;
     private bool isClicked = false;
+    private SpriteListHolder sList;
+    private SpriteRenderer sr;
 
     private const float moveDistance = 0.2f;
     private const float moveDuration = 1f;
@@ -18,9 +23,35 @@ public class MoveSpriteUpAndDown : MonoBehaviour
 
     private float timer = 0f;
 
+
     private void Start()
     {
+        stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        sList = GetComponent<SpriteListHolder>();
+        Dictionary<SpriteListHolder.ItemType, List<Sprite>> spriteList = new Dictionary<SpriteListHolder.ItemType, List<Sprite>>();
+        spriteList = sList.spriteLists;
+        sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
+        Sprite randomSprite = GetRandomSprite(spriteList);
+        Debug.Log("worked");
+        sr.sprite = randomSprite;
+    }
+
+    private Sprite GetRandomSprite(Dictionary<SpriteListHolder.ItemType, List<Sprite>> spritesList)
+    {
+        Dictionary<SpriteListHolder.ItemType, List<Sprite>> spriteL = spritesList;
+        if (spriteL.Count == 0)
+        {
+            Debug.LogWarning("The sprite list is empty.");
+            return null;
+        }
+        List<SpriteListHolder.ItemType> keyList = new List<SpriteListHolder.ItemType>(spriteL.Keys);
+        int randomIndex = Random.Range(0, spritesList.Count);
+        SpriteListHolder.ItemType randomKey = keyList[randomIndex];
+        List<Sprite> spriteList = spriteL[randomKey];
+        int randomSpriteIndex = Random.Range(0, spriteList.Count);
+        Sprite randomSprite = spriteList[randomSpriteIndex];
+        return randomSprite;
     }
 
     private void Update()

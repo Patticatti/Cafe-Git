@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6258774249102030479}
   - component: {fileID: 842123486199192663}
   - component: {fileID: 9103248512140696055}
+  - component: {fileID: -3684700231103204568}
   m_Layer: 0
-  m_Name: necklace
+  m_Name: itemdrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15570bb507ea82940a315021a3b139f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPosition: {fileID: 0}
 --- !u!61 &9103248512140696055
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +145,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1843101, y: 1.2003372}
   m_EdgeRadius: 0
+--- !u!114 &-3684700231103204568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648862666200862422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d2c6b18f51f96489e6608480880b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  necklaces: []
+  bracelets: []
+  rings: []
+  earrings: []

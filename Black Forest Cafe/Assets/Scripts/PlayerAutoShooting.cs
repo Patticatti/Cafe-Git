@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerAutoShooting : MonoBehaviour
 {
-    public float shootingRange = 10f;
-    public float shootingInterval = 0.5f;
+    public float shootingRng = 10f;
+    public float shootingIntrvl = 0.5f;
     public string enemyTag = "Enemy";
     public GameObject bullet;
     public Transform bulletPos;
@@ -13,20 +13,21 @@ public class PlayerAutoShooting : MonoBehaviour
     private FindNearest findNearest;
     private GameObject target;
     private Animator anim;
+    private PlayerStats stats;
     private float timer;
 
     private void Start()
     {
+        stats = GetComponent<PlayerStats>();
         findNearest = new FindNearest(bulletPos, enemyTag);
         anim = GetComponent<Animator>();
     }
 
     private void OnShootingAnimationEnd()
     {
-        anim.SetInteger("state", 0); // Switch to the Idle state (or any other state you want)
+        anim.SetInteger("state", 0); 
     }
 
-    // Replace this with your shooting logic, this is just a simple example
     private void Shoot()
     {
         if (target != null)
@@ -38,10 +39,11 @@ public class PlayerAutoShooting : MonoBehaviour
         }
     }
 
-    // Replace this with your input handling or shooting method trigger
     private void Update()
     {
-        if (Input.GetMouseButton(0) && (timer >= shootingInterval))
+        shootingRng = stats.shootingRange;
+        shootingIntrvl = stats.shootingInterval; 
+        if (Input.GetMouseButton(0) && (timer >= shootingIntrvl))
         {
             target = findNearest.TargetEnemy();
             Shoot();

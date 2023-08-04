@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private Animator anim;
+    private PlayerStats stats;
 
     private float dirX = 0f;
     private float dirY = 0f;
@@ -17,10 +18,10 @@ public class PlayerMovement : MonoBehaviour
     private float aimAngle = 0f;
     private int facing = 0; //need for updating animation and interacting
 
-    [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float moveSpd;
 
     [Header("Dash Settings")]
-    [SerializeField] float dashSpeed = 12f;
+    [SerializeField] float dashSpeed;
     [SerializeField] float dashDuration = 0.2f;
     [SerializeField] float dashCooldown = 0.5f;
     bool isDashing;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        stats = GetComponent<PlayerStats>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -37,6 +39,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        moveSpd = stats.moveSpeed;
+        dashSpeed = moveSpd * 2f;
+
+
         if (isDashing)
         {
             return;
@@ -134,7 +140,7 @@ private void FixedUpdate()
     {
         return;
     }
-    rb.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * moveSpeed;
+    rb.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * moveSpd;
 
     Vector2 aimDirection = mousePosition - rb.position;
 

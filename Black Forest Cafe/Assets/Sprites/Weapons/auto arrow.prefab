@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4269411739862989125}
   - component: {fileID: 3274488484152545358}
   - component: {fileID: 7394520423674939390}
-  - component: {fileID: -765080703139175535}
   - component: {fileID: 627575509750801722}
+  - component: {fileID: -765080703139175535}
   m_Layer: 0
   m_Name: auto arrow
   m_TagString: Weapon
@@ -160,19 +160,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-765080703139175535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5738085176451089552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbc927bb2a86c74386408ddec302952, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Offset: {x: 0, y: -0.2, z: 0}
 --- !u!114 &627575509750801722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,3 +174,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   force: 12
+--- !u!114 &-765080703139175535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738085176451089552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbc927bb2a86c74386408ddec302952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {x: 0, y: -0.2, z: 0}

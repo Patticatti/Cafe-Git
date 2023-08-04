@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
 {
     private PlayerHealth playerComponent;
     private SpriteRenderer sr;
+    private PlayerStats stats;
+    [SerializeField]
+    private GameObject item;
     //private Color originalColor;
     //private const float flashDuration = 0.2f;
     //private Material originalMaterial;
@@ -16,6 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float health, maxHealth = 5f;
     private void Start()
     {
+        stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
         //sr = GetComponent<SpriteRenderer>();
         //originalMaterial = sr.material;
         //whiteMaterial = new Material(Shader.Find("Custom/WhiteFlash"));
@@ -26,8 +30,11 @@ public class Enemy : MonoBehaviour
 
     private void DropItem()
     {
-        if (Random.value > 0)
-            Debug.Log("dropped item");
+        if (Random.value <= stats.dropChance)
+        {
+            Instantiate(item, transform);
+            Debug.Log("dropped");
+        }
     }
 
     public void TakeDamage(float damageAmount)

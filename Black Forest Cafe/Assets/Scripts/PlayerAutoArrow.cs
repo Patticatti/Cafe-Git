@@ -9,16 +9,17 @@ public class PlayerAutoArrow : MonoBehaviour
     private GameObject enemy;
 
     private Rigidbody2D rb;
+    private PlayerStats stats;
     public float force = 3;
     private float timer;
     private Vector3 direction;
     private Enemy enemyComponent;
     private bool triggered = false;
 
-    // Start is called before the first frame update
 
     private void Start()
     {
+        stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
         rb = GetComponent<Rigidbody2D>();
         findNearest = new FindNearest(transform, enemyTag);
         enemy = findNearest.TargetEnemy();
@@ -45,7 +46,7 @@ public class PlayerAutoArrow : MonoBehaviour
             {
                 triggered = true;
                 enemyComponent = other.GetComponent<Enemy>();
-                enemyComponent.TakeDamage(1f);
+                enemyComponent.TakeDamage(stats.atkTotal);
                 Destroy(gameObject);
             }
             else if ((other.gameObject.CompareTag("Terrain")))
