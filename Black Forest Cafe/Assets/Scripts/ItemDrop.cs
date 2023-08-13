@@ -5,13 +5,14 @@ using Random = UnityEngine.Random;
 public class ItemDrop : MonoBehaviour
 {
     public Item itemCopy;
+    public SpriteListHolder sList;
     private PlayerStats stats;
     private Vector3 originalPosition;
     private bool isMovingUp = true;
     private bool isWaiting = false;
     private bool isClicked = false;
-    private SpriteListHolder sList;
     private SpriteRenderer sr;
+    private Sprite randomSprite;
 
     private const float moveDistance = 0.5f;
     private const float moveDuration = 1f;
@@ -28,18 +29,36 @@ public class ItemDrop : MonoBehaviour
     private void Start()
     {
         itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
-        player = GameObject.FindWithTag("Player");
+        player = Inventory.instance.player;
         playerPosition = player.transform;
         stats = player.GetComponent<PlayerStats>();
 
         sList = GetComponent<SpriteListHolder>();
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
-        Sprite randomSprite = sList.GetRandomSprite();
+        if (itemCopy.generateAsRandom)
+        {
+            randomSprite = sList.GetRandomSprite();
+            itemCopy.icon = randomSprite;
+            itemCopy.itemType = sList.itemKind;
+            sr.sprite = randomSprite;
+        }
+        UpdateSprite();
+    }
+    public void UpdateSprite()
+    {
+        sr.sprite = itemCopy.icon;
+        Debug.Log("item is type "+ itemCopy.itemType);
+    }
+    /*
+    public void GetRandomSprite()
+    {
+        randomSprite = sList.GetRandomSprite();
         itemCopy.icon = randomSprite;
         itemCopy.itemType = sList.itemKind;
         sr.sprite = randomSprite;
-    }
+        UpdateSprite();
+    }*/
 
     private void Update()
     {

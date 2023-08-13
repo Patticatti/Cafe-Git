@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
     #endregion
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
+    public Transform playerPosition;
+    public GameObject player;
 
     public int space = 14; //invspace
     public List<Item> items = new List<Item>(); 

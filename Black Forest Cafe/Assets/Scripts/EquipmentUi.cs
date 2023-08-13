@@ -60,6 +60,7 @@ public class EquipmentUi : MonoBehaviour
 
     public void Remove(Item item)
     {
+        Debug.Log("called clearslot from equipUI");
         slots[item.itemType].ClearSlot();
     }
 }

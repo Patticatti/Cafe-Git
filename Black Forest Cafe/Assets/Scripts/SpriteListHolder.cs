@@ -40,11 +40,6 @@ public class SpriteListHolder : MonoBehaviour
 
     public Sprite GetRandomSprite()
     {
-        if (spriteLists.Count == 0)
-        {
-            Debug.LogWarning("The sprite list is empty.");
-            return null;
-        }
         List<ItemType> keyList = new List<ItemType>(spriteLists.Keys);
         int randomIndex = Random.Range(0, spriteLists.Count); //random type of item
         ItemType randomKey = keyList[randomIndex];

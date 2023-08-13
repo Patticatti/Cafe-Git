@@ -29744,8 +29744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333205f4fbb267f4f9ec328a67b3cb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItem: {fileID: 11400000, guid: da723190014119f4a94e0ff8b6fb0be0, type: 2}
-  items: []
   equipmentParent: {fileID: 1059333426}
   slots: []
 --- !u!224 &940074357 stripped
@@ -53522,6 +53520,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1900687070}
     m_Modifications:
+    - target: {fileID: 1932520982142733679, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1932520982142733679, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1932520982142733679, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1932520982142733679, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: InventorySlot, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4068958081928108924, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
       propertyPath: m_SizeDelta.x
       value: 50

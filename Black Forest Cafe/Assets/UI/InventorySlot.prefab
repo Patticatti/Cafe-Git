@@ -199,7 +199,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -1235981313850288171}
         m_TargetAssemblyTypeName: InventorySlot, Assembly-CSharp
-        m_MethodName: RemoveItemFromInventory
+        m_MethodName: RemoveItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -260,8 +260,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b6585839e9be14ca0d5dedf39739f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDrop: {fileID: 1648862666200862422, guid: 274b9976fe2e8ea488ed18826aa13fcd, type: 3}
   icon: {fileID: 1830533152439858794}
+  playerPosition: {fileID: 0}
   removeButton: {fileID: 1932520982142733679}
+  item: {fileID: 0}
 --- !u!1 &8311433651631539065
 GameObject:
   m_ObjectHideFlags: 0
