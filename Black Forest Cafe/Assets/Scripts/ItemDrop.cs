@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class ItemDrop : MonoBehaviour
 {
+    public Item itemCopy;
     private PlayerStats stats;
     private Vector3 originalPosition;
     private bool isMovingUp = true;
@@ -12,13 +13,12 @@ public class ItemDrop : MonoBehaviour
     private SpriteListHolder sList;
     private SpriteRenderer sr;
 
-    private const float moveDistance = 0.2f;
+    private const float moveDistance = 0.5f;
     private const float moveDuration = 1f;
-    private const float waitDuration = 0.5f;
+    private const float waitDuration = 0.2f;
 
     private GameObject player;
-    [SerializeField]
-    public Transform playerPosition;
+    private Transform playerPosition;
 
     private const float shrinkDuration = 0.5f;
 
@@ -27,6 +27,7 @@ public class ItemDrop : MonoBehaviour
 
     private void Start()
     {
+        itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
         player = GameObject.FindWithTag("Player");
         playerPosition = player.transform;
         stats = player.GetComponent<PlayerStats>();
@@ -35,6 +36,7 @@ public class ItemDrop : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
         Sprite randomSprite = sList.GetRandomSprite();
+        itemCopy.icon = randomSprite;
         sr.sprite = randomSprite;
     }
 
@@ -51,6 +53,7 @@ public class ItemDrop : MonoBehaviour
             }
             else
             {
+                Inventory.instance.Add(itemCopy);
                 Destroy(gameObject);
             }
         }

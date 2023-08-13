@@ -12,6 +12,7 @@ public class AIChase : MonoBehaviour
     private SpriteRenderer sr;
     private float distance;
     private Vector3 direction;
+    private Enemy enemy;
 
     private void Start()
     {

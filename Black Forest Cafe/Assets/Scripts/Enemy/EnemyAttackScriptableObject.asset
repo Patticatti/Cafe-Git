@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2205825a9080eae42a9c9fc646036343, type: 3}
-  m_Name: SimpleRandomWalkParameters_SmallRoom
+  m_Script: {fileID: 11500000, guid: f7e256b5da05d3447a9387233773ed94, type: 3}
+  m_Name: EnemyAttackScriptableObject
   m_EditorClassIdentifier: 
-  iterations: 100
-  walkLength: 40
-  startRandomlyEachIteration: 0
+  attackDamage: 1
+  attackRange: 10

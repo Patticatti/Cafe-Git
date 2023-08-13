@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
     public float shootingRange = 10f;
     public float shootingInterval = 0.5f;
 
-    public float dropChance = 50f;
+    public float dropChance = 0.5f;
     public float atkDamage = 2f;
     public float atkIncrease = 1f;
     public float atkTotal;

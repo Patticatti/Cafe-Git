@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3746065837059841781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4844026990634065247
 SpriteRenderer:
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newSprite: {fileID: -1072833190, guid: 4d4c299ea0f17354f8e67d272a2e3147, type: 3}
+  item: {fileID: 1648862666200862422, guid: 274b9976fe2e8ea488ed18826aa13fcd, type: 3}
 --- !u!61 &1836360974095467972
 BoxCollider2D:
   m_ObjectHideFlags: 0

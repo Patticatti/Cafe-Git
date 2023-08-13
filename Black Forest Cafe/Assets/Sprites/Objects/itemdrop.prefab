@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 842123486199192663}
   - component: {fileID: 9103248512140696055}
   - component: {fileID: -3684700231103204568}
-  - component: {fileID: 8037949438952502158}
+  - component: {fileID: 4833928141598816357}
   m_Layer: 0
   m_Name: itemdrop
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6258774249102030479
 SpriteRenderer:
@@ -170,7 +170,7 @@ MonoBehaviour:
   bracelet1: {fileID: -1230739009, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
   ring1: {fileID: -337084979, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
   earring1: {fileID: 2103210833, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
---- !u!114 &8037949438952502158
+--- !u!114 &4833928141598816357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1648862666200862422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15570bb507ea82940a315021a3b139f4, type: 3}
+  m_Script: {fileID: 11500000, guid: fa801876dd4cbb343a0655c0c8924652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {fileID: 0}
+  Offset: {x: 0, y: -1, z: 0}

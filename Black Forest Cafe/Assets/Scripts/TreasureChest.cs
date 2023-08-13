@@ -4,8 +4,10 @@ using UnityEngine.Events;
 public class ChangeSpriteOnClick : MonoBehaviour
 {
     public Sprite newSprite; // The sprite to change to
+    public GameObject item;
 
     private SpriteRenderer spriteRenderer;
+    private bool isClick = false;
 
     private void Start()
     {
@@ -23,9 +25,12 @@ public class ChangeSpriteOnClick : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (spriteRenderer != null && newSprite != null)
+            if (spriteRenderer != null && newSprite != null && !isClick)
             {
                 spriteRenderer.sprite = newSprite;
+                GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
+                isClick = true;
+                //newItem.transform.parent = null;
             }
         }
     }

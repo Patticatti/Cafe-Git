@@ -6,28 +6,55 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    private GameObject player;
+    [SerializeField]
+    private EnemyScriptableObject enemyScriptableObject;
+    //[SerializeField]
+    //private AudioSource audioSource;
     private PlayerHealth playerComponent;
+    private Rigidbody2D rb;
     private SpriteRenderer sr;
     private PlayerStats stats;
     [SerializeField]
     public GameObject item;
 
     [SerializeField] float health, maxHealth = 5f;
+    private float timer;
+    private float spd = 3f;
+    private float distance;
+    private Vector3 direction;
+
     private void Start()
     {
-        stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        player = GameObject.FindWithTag("Player");
+        stats = player.GetComponent<PlayerStats>();
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         health = maxHealth;
+        playerComponent = player.GetComponent<PlayerHealth>();
         EventManager.Instance.generateEvent.AddListener(Destroy);
     }
-    /*
-    private void DropItem()
+
+    private void Update()
     {
-        if (Random.value <= stats.dropChance)
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        if (distance < enemyScriptableObject.enemyAttackType.attackRange)
         {
-            Instantiate(item, transform);
-            Debug.Log("dropped");
+            direction = player.transform.position - transform.position;
+            if (direction.x < 0)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                sr.flipX = false;
+            }
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * spd;
         }
-    }*/
+        //Vector2 direction = player.transform.position;
+
+        //transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+    }
 
     public void TakeDamage(float damageAmount)
     {
@@ -59,11 +86,8 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) //disappear on hit
     {
-        if ((other.gameObject.CompareTag("Player")))
-        {
-            playerComponent = other.GetComponent<PlayerHealth>();
+        if (other.gameObject == player)
             playerComponent.TakeDamage(1f);
-        }
     }
 }
     // Update is called once per frame
