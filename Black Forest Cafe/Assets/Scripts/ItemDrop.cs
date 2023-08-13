@@ -37,6 +37,7 @@ public class ItemDrop : MonoBehaviour
         originalPosition = transform.position;
         Sprite randomSprite = sList.GetRandomSprite();
         itemCopy.icon = randomSprite;
+        itemCopy.itemType = sList.itemKind;
         sr.sprite = randomSprite;
     }
 

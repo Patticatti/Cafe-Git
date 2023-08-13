@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     public GameObject inventoryUI; //UI
-    public Transform itemsParent;
+    public GameObject itemsParent;
 
     Inventory inventory;
 
@@ -21,14 +21,13 @@ public class InventoryUI : MonoBehaviour
         if (Input.GetButtonDown("Inventory"))
         {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
-            Debug.Log("clicked");
             UpdateUI();
         }
     }
 
     public void UpdateUI()
     {
-        InventorySlot[] slots = GetComponentsInChildren<InventorySlot>();
+        InventorySlot[] slots = itemsParent.GetComponentsInChildren<InventorySlot>();
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -41,6 +40,5 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
-        Debug.Log("Updating UI");
     }
 }

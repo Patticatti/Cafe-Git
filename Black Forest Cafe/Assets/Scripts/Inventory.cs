@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour
     {
         if (item.showInInventory)
         {
+            item.isEquipped = false;
             if (items.Count > space)
             {
                 Debug.Log("not enough room");

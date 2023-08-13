@@ -11,7 +11,12 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Button removeButton;
 
-    Item item;  // Current item in the slot
+    public Item item;  // Current item in the slot
+
+    public void Awake()
+    {
+        removeButton.interactable = false;
+    }
 
     // Add item to the slot
     public void AddItem(Item newItem)

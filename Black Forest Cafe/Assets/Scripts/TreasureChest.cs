@@ -23,9 +23,9 @@ public class ChangeSpriteOnClick : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isClick)
         {
-            if (spriteRenderer != null && newSprite != null && !isClick)
+            if (spriteRenderer != null && newSprite != null)
             {
                 spriteRenderer.sprite = newSprite;
                 GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);

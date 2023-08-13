@@ -13,6 +13,7 @@ public class SpriteListHolder : MonoBehaviour
     public Sprite bracelet1;
     public Sprite ring1;
     public Sprite earring1;
+    public int itemKind; //0 for necklace, 1 for bracelet, 2 for ring, 3 for earring
 
 
     private void Awake()
@@ -45,15 +46,12 @@ public class SpriteListHolder : MonoBehaviour
             return null;
         }
         List<ItemType> keyList = new List<ItemType>(spriteLists.Keys);
-        int randomIndex = Random.Range(0, spriteLists.Count);
+        int randomIndex = Random.Range(0, spriteLists.Count); //random type of item
         ItemType randomKey = keyList[randomIndex];
         List<Sprite> spriteList = spriteLists[randomKey];
-        int randomSpriteIndex = Random.Range(0, spriteList.Count);
+        int randomSpriteIndex = Random.Range(0, spriteList.Count); //which variation of necklace
         Sprite randomSprite = spriteList[randomSpriteIndex];
-        if (randomSprite == null)
-        {
-            Debug.Log("fck");
-        }
+        itemKind = randomIndex;
         return randomSprite;
     }
 
