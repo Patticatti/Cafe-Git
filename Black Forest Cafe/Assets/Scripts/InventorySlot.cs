@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour
 {
     public GameObject itemDrop;
+    public ItemDrop itemDropComponent;
     public Image icon;
     public Transform playerPosition;
     public Button removeButton;
@@ -16,7 +17,7 @@ public class InventorySlot : MonoBehaviour
 
     public void Awake()
     {
-        //itemDropScript = itemDrop.GetComponent<ItemDrop>();
+        itemDropComponent = itemDrop.GetComponent<ItemDrop>();
         removeButton.interactable = false;
     }
 
@@ -24,7 +25,7 @@ public class InventorySlot : MonoBehaviour
     public void AddItem(Item newItem)
     {
         item = newItem;
-
+        itemDropComponent.itemCopy = item; //modifying 
         icon.sprite = item.icon;
         icon.enabled = true;
         removeButton.interactable = true;
@@ -32,19 +33,17 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
-        //itemDropScript.itemCopy.generateAsRandom = false;
+        itemDropComponent.itemCopy = item;
         GameObject newItem = Instantiate(itemDrop, Inventory.instance.playerPosition.position, Quaternion.identity);
-        //newItem.GetComponent<ItemDrop>().itemCopy.generateAsRandom = false;
-        //newItem.GetComponent<ItemDrop>().UpdateSprite();
-        RemoveItemFromInventory();
         ClearSlot();
+        RemoveItemFromInventory();
     }
     // Clear the slot
     public void ClearSlot()
     {
         if (item != null)
         {
-            item = null;
+            itemDropComponent.itemCopy = null;
             icon.sprite = null;
             icon.enabled = false;
             removeButton.interactable = false;
@@ -56,6 +55,7 @@ public class InventorySlot : MonoBehaviour
     public void RemoveItemFromInventory()
     {
         Inventory.instance.Remove(item);
+        item = null;
     }
 
     // Use the item
@@ -66,5 +66,12 @@ public class InventorySlot : MonoBehaviour
             item.Use();
         }
     }
+
+    private void OnApplicationQuit()
+    {
+        item = null;
+        itemDropComponent.itemCopy = null;
+    }
+
 
 }

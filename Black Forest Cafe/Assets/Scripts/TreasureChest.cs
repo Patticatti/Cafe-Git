@@ -27,6 +27,7 @@ public class ChangeSpriteOnClick : MonoBehaviour
         {
             if (spriteRenderer != null && newSprite != null)
             {
+                item.GetComponent<ItemDrop>().itemCopy = null;
                 spriteRenderer.sprite = newSprite;
                 GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
                 isClick = true;

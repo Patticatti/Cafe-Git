@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1230739009, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &842123486199192663
@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15570bb507ea82940a315021a3b139f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {fileID: 0}
+  itemCopy: {fileID: 0}
+  sList: {fileID: 0}
 --- !u!61 &9103248512140696055
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,6 +171,7 @@ MonoBehaviour:
   bracelet1: {fileID: -1230739009, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
   ring1: {fileID: -337084979, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
   earring1: {fileID: 2103210833, guid: 5ee59f2fe303ed34aadedb5cad6d57b9, type: 3}
+  itemKind: 0
 --- !u!114 &4833928141598816357
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,10 +22,6 @@ public class EquipmentUi : MonoBehaviour
     {
         equipmentUi = EquipmentUi.instance;
         slots = equipmentParent.GetComponentsInChildren<InventorySlot>();
-        /*for (int i = 0; i < slots.Length; i++)
-        {
-              slots[i].AddItem(defaultItem);
-        }*/
     }
 
     public void Add(Item item)
@@ -37,30 +33,9 @@ public class EquipmentUi : MonoBehaviour
             slots[item.itemType].removeButton.interactable = true;
         }
     }
-    /*
-    public void UpdateEquipmentUI()
-    {
-        InventorySlot[] slots = GetComponentsInChildren<InventorySlot>();
-        //int itemKind = item.itemType;
-        //if ()
-
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (i < inventory.items.Count)
-            {
-                slots[i].AddItem(inventory.items[i]);
-            }
-            else
-            {
-                slots[i].ClearSlot();
-            }
-        }
-        Debug.Log("Updating UI");
-    }*/
 
     public void Remove(Item item)
     {
-        Debug.Log("called clearslot from equipUI");
         slots[item.itemType].ClearSlot();
     }
 }

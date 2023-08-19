@@ -25,6 +25,7 @@ public class BreakableObject : MonoBehaviour
         {
             if (Random.value <= stats.dropChance)
             {
+                item.GetComponent<ItemDrop>().itemCopy = null;
                 GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
                 newItem.transform.parent = null;
                 Debug.Log("dropped");

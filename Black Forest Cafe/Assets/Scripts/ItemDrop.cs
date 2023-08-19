@@ -24,11 +24,11 @@ public class ItemDrop : MonoBehaviour
     private const float shrinkDuration = 0.5f;
 
     private float timer = 0f;
+    private float despawnTimer = 0f;
 
 
     private void Start()
     {
-        itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
         player = Inventory.instance.player;
         playerPosition = player.transform;
         stats = player.GetComponent<PlayerStats>();
@@ -36,8 +36,10 @@ public class ItemDrop : MonoBehaviour
         sList = GetComponent<SpriteListHolder>();
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
-        if (itemCopy.generateAsRandom)
+        if (itemCopy == null)
         {
+            Debug.Log("newrandom item");
+            itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
             randomSprite = sList.GetRandomSprite();
             itemCopy.icon = randomSprite;
             itemCopy.itemType = sList.itemKind;
@@ -48,17 +50,7 @@ public class ItemDrop : MonoBehaviour
     public void UpdateSprite()
     {
         sr.sprite = itemCopy.icon;
-        Debug.Log("item is type "+ itemCopy.itemType);
     }
-    /*
-    public void GetRandomSprite()
-    {
-        randomSprite = sList.GetRandomSprite();
-        itemCopy.icon = randomSprite;
-        itemCopy.itemType = sList.itemKind;
-        sr.sprite = randomSprite;
-        UpdateSprite();
-    }*/
 
     private void Update()
     {
@@ -111,7 +103,13 @@ public class ItemDrop : MonoBehaviour
                 }
             }
         }
+        despawnTimer += Time.deltaTime;
+        if (despawnTimer > 15)
+        {
+            Destroy(gameObject);
+        }
     }
+
 
 
     private void OnMouseDown()
@@ -123,5 +121,10 @@ public class ItemDrop : MonoBehaviour
             isWaiting = false;
             timer = 0f;
         }
+    }
+
+    private void Destroy()
+    {
+        Destroy(itemCopy);
     }
 }
