@@ -9,7 +9,6 @@ public class Item : ScriptableObject
     public bool showInInventory = true;
     public int itemType;
     public bool isEquipped = false;
-    public bool generateAsRandom = true;
 
     // Called when the item is pressed in the inventory
     public virtual void Use()

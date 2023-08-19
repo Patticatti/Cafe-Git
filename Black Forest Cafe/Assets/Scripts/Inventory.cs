@@ -23,7 +23,6 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(items.Count);
         full = (items.Count == space);
     }
     public void Add(Item item)
@@ -33,7 +32,6 @@ public class Inventory : MonoBehaviour
             item.isEquipped = false;
             if (items.Count > space)
             {
-                Debug.Log("not enough room");
                     return; 
             }
             items.Add(item);
