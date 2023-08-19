@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDrop: {fileID: 1648862666200862422, guid: 274b9976fe2e8ea488ed18826aa13fcd, type: 3}
+  itemDropComponent: {fileID: 0}
   icon: {fileID: 1830533152439858794}
   playerPosition: {fileID: 0}
   removeButton: {fileID: 1932520982142733679}

@@ -16,10 +16,16 @@ public class Inventory : MonoBehaviour
     public OnItemChanged onItemChangedCallback;
     public Transform playerPosition;
     public GameObject player;
+    public bool full = false;
 
     public int space = 14; //invspace
     public List<Item> items = new List<Item>(); 
 
+    private void Update()
+    {
+        Debug.Log(items.Count);
+        full = (items.Count == space);
+    }
     public void Add(Item item)
     {
         if (item.showInInventory)

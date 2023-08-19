@@ -24,6 +24,8 @@ public class InventorySlot : MonoBehaviour
     // Add item to the slot
     public void AddItem(Item newItem)
     {
+        Debug.Log("added item");
+        item = null;
         item = newItem;
         itemDropComponent.itemCopy = item; //modifying 
         icon.sprite = item.icon;
@@ -33,6 +35,7 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
+        Debug.Log("removed item");
         itemDropComponent.itemCopy = item;
         GameObject newItem = Instantiate(itemDrop, Inventory.instance.playerPosition.position, Quaternion.identity);
         ClearSlot();

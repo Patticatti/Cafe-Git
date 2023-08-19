@@ -114,7 +114,7 @@ public class ItemDrop : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !Inventory.instance.full && !isClicked)
         {
             isClicked = true;
             isMovingUp = true;

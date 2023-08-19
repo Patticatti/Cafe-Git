@@ -22,6 +22,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     private GameObject enemyPrefab;
     [SerializeField]
     private GameObject chestPrefab;
+    [SerializeField]
+    private int barrelAmnt = 5;
 
     private Dictionary<RoomType, HashSet<Vector2Int>> roomKind = new Dictionary<RoomType, HashSet<Vector2Int>>()
     {
@@ -121,7 +123,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         foreach (KeyValuePair<Vector2Int, HashSet<Vector2Int>> entry in roomsDictionary)
         {
             ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
-            barrelSpots = itemPlacement.GetRandomSpotsNearWall(entry.Value, 5);
+            barrelSpots = itemPlacement.GetRandomSpotsNearWall(entry.Value, barrelAmnt);
             foreach (var position in barrelSpots)
             {
                 Instantiate(barrelPrefab, new Vector3(position.x + 0.5f, position.y + 0.5f, 0), Quaternion.identity);
