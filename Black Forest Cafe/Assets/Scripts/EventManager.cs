@@ -8,12 +8,15 @@ public class EventManager : MonoBehaviour
 
     public UnityEvent generateEvent;
 
+    public UnityEvent destroyEntities;
+
     public EventManager()
     {
         if (Instance == null)
         {
             Instance = this;
             generateEvent = new UnityEvent();
+            destroyEntities = new UnityEvent();
         }
         else
         {

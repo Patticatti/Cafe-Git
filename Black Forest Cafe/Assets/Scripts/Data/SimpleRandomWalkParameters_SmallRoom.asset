@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SimpleRandomWalkParameters_SmallRoom
   m_EditorClassIdentifier: 
   iterations: 100
-  walkLength: 40
+  walkLength: 50
   startRandomlyEachIteration: 0

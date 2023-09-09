@@ -25,6 +25,9 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     [SerializeField]
     private int barrelAmnt = 5;
 
+    public bool generateItems = true;
+    public bool generateEnemies = true;
+
     private Dictionary<RoomType, HashSet<Vector2Int>> roomKind = new Dictionary<RoomType, HashSet<Vector2Int>>()
     {
         { RoomType.Empty, new HashSet<Vector2Int>() },
@@ -67,8 +70,12 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             corridors[i] = IncreaseCorridorSizeByOne(corridors[i]);
             floorPositions.UnionWith(corridors[i]);
         }
-        Instantiate(chestPrefab, new Vector3(0, 3f, 0), Quaternion.identity);
-        AddBarrels();
+        if (generateItems)
+        {
+            Instantiate(chestPrefab, new Vector3(0, 3f, 0), Quaternion.identity);
+            AddBarrels();
+        }
+        if (generateEnemies)
         AddEnemies();
 
         tilemapVisualizer.PaintFloorTiles(floorPositions);

@@ -6,7 +6,7 @@ public class ItemDrop : MonoBehaviour
 {
     public Item itemCopy;
     public SpriteListHolder sList;
-    private PlayerStats stats;
+    private Stats stats;
     private Vector3 originalPosition;
     private bool isMovingUp = true;
     private bool isWaiting = false;
@@ -31,14 +31,14 @@ public class ItemDrop : MonoBehaviour
     {
         player = Inventory.instance.player;
         playerPosition = player.transform;
-        stats = player.GetComponent<PlayerStats>();
+        stats = player.GetComponent<Stats>();
 
         sList = GetComponent<SpriteListHolder>();
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
         if (itemCopy == null)
         {
-            Debug.Log("newrandom item");
+            //Debug.Log("newrandom item");
             itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
             randomSprite = sList.GetRandomSprite();
             itemCopy.icon = randomSprite;
@@ -65,7 +65,6 @@ public class ItemDrop : MonoBehaviour
             }
             else
             {
-                Inventory.instance.Add(itemCopy);
                 Destroy(gameObject);
             }
         }
@@ -104,7 +103,7 @@ public class ItemDrop : MonoBehaviour
             }
         }
         despawnTimer += Time.deltaTime;
-        if (despawnTimer > 15)
+        if (despawnTimer > 180)
         {
             Destroy(gameObject);
         }
@@ -116,6 +115,7 @@ public class ItemDrop : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !Inventory.instance.full && !isClicked)
         {
+            Inventory.instance.Add(itemCopy);
             isClicked = true;
             isMovingUp = true;
             isWaiting = false;

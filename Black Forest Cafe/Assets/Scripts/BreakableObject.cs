@@ -7,10 +7,10 @@ public class BreakableObject : MonoBehaviour
 {
     [SerializeField]
     public GameObject item;
-    private PlayerStats stats;
+    private Stats stats;
     private void Start()
     {
-        stats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        stats = GameObject.FindWithTag("Player").GetComponent<Stats>();
         EventManager.Instance.generateEvent.AddListener(Destroy);
     }
 
@@ -28,7 +28,6 @@ public class BreakableObject : MonoBehaviour
                 item.GetComponent<ItemDrop>().itemCopy = null;
                 GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
                 newItem.transform.parent = null;
-                Debug.Log("dropped");
             }
             Destroy(gameObject);
         }

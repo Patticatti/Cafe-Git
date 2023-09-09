@@ -37,5 +37,6 @@ public class EquipmentUi : MonoBehaviour
     public void Remove(Item item)
     {
         slots[item.itemType].ClearSlot();
+        slots[item.itemType].item = null;
     }
 }

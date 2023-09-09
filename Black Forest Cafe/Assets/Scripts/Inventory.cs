@@ -23,7 +23,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        full = (items.Count == space);
+        full = (items.Count >= space);
     }
     public void Add(Item item)
     {

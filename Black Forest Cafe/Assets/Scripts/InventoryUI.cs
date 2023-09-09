@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
 
     void Start()
     {
+        inventoryUI.SetActive(false);
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
     }

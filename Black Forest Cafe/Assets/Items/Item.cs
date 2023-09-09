@@ -17,17 +17,17 @@ public class Item : ScriptableObject
         {
             if (EquipmentUi.instance.slots[itemType].item != null) //already in slot
             {
-                Debug.Log("not enough room");
                 return;
             }
             EquipmentUi.instance.Add(this);
             Inventory.instance.Remove(this);
         }
-        else
+        else if (Inventory.instance.full == false)
         {
             Inventory.instance.Add(this);
             EquipmentUi.instance.Remove(this);
         }
+
     }
     /*
     // Call this method to remove the item from inventory
