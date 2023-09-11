@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3274488484152545358}
   - component: {fileID: 7394520423674939390}
   - component: {fileID: 627575509750801722}
-  - component: {fileID: -765080703139175535}
+  - component: {fileID: -1353581777754695707}
   m_Layer: 0
-  m_Name: auto arrow
+  m_Name: enemy ball
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4269411739862989125
 SpriteRenderer:
@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 29e04729d91a63b4280fa5f17751e948, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9fe75509ebad6464a9b3235bb5731fb9, type: 3}
+  m_Sprite: {fileID: -1782266378, guid: f88805c6187863a48aeac1a950374b92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03360918, y: 0.3150996}
+  m_Offset: {x: -0.0014681518, y: 0.0036668777}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.28222853, y: 0.2589289}
+  m_Size: {x: 0.29807013, y: 0.2913046}
   m_EdgeRadius: 0
 --- !u!50 &7394520423674939390
 Rigidbody2D:
@@ -172,18 +172,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228af4aa533d0914bb40744dea174d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTag: Enemy
-  force: 12
---- !u!114 &-765080703139175535
+  enemyTag: Player
+  isplayer: 0
+  force: 6
+--- !u!114 &-1353581777754695707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5738085176451089552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbc927bb2a86c74386408ddec302952, type: 3}
+  m_Script: {fileID: 11500000, guid: 4978148fd678c1644bacf317144739c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: {x: 0, y: -0.2, z: 0}
+  original: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  whiteFlash: {fileID: 2100000, guid: 693890dabffd2134c93b12ecb3e261a9, type: 2}

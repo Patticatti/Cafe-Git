@@ -53,10 +53,14 @@ public class Health : MonoBehaviour
             }
             if (isPlayer)
             {
+                sr.color = new Color(0.5f, 0.5f, 0.5f, 1f);
                 healthBar.SetHealth(health);
                 canTakeDmg = false;
             }
-            sr.material = hitMaterial;
+            else
+            {
+                sr.material = hitMaterial;
+            }
             timer = 0;
         }
     }
@@ -70,7 +74,7 @@ public class Health : MonoBehaviour
             if (timer > 1)
             {
                 canTakeDmg = true;
-                sr.material = spriteMaterial;
+                sr.color = new Color(1f, 1f, 1f, 1f);
             }
         }
         else

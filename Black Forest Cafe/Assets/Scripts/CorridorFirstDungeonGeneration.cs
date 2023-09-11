@@ -158,7 +158,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
                     ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
                     enemyPlaces = itemPlacement.GetRandomSpotsForEnemies(entry.Value, 3);
 
-                    foreach (var enemyPosition in enemyPlaces)
+                    foreach (var enemyPosition in enemyPlaces) //enemyPlaces is vector2 with x and y
                     {
                         Instantiate(enemyPrefab, new Vector3(enemyPosition.x + 0.5f, enemyPosition.y + 0.5f, 0), Quaternion.identity);
                     }

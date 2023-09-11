@@ -9,11 +9,12 @@ public class InventoryUI : MonoBehaviour
 
     Inventory inventory;
 
-    void Start()
+    void Awake()
     {
-        inventoryUI.SetActive(false);
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
+        inventoryUI.SetActive(false);
+
     }
 
     // Update is called once per frame

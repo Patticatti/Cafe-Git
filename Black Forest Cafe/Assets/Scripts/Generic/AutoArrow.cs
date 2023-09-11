@@ -2,26 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerArrowScript : MonoBehaviour
+public class AutoArrow : MonoBehaviour
 {
-    public GameObject enemy;
+    public string enemyTag = "Enemy";
+    public bool isplayer;
+    private FindNearest findNearest;
+    private GameObject enemy;
 
     private Rigidbody2D rb;
-    public float force;
-    private float timer;
-    private Vector3 mousePos;
-    private Vector3 direction;
     private Stats stats;
-    private Health enemyComponent;
+    public float force = 3;
+    private float timer;
+    private Vector3 direction;
+    private Health enemyHealth;
     private bool triggered = false;
 
-    // Start is called before the first frame update
+
     private void Start()
     {
+        stats = Inventory.instance.player.GetComponent<Stats>();
         rb = GetComponent<Rigidbody2D>();
-        stats = GetComponent<Stats>();
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePos - transform.position;
+        findNearest = new FindNearest(transform, enemyTag, isplayer);
+        enemy = findNearest.TargetEnemy();
+
+        direction = enemy.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot + 90);
@@ -39,17 +43,20 @@ public class PlayerArrowScript : MonoBehaviour
     {
         if (triggered == false)
         {
-            if ((other.gameObject.CompareTag("Enemy")))
+            if ((other.gameObject.CompareTag(enemyTag)))
             {
                 triggered = true;
-                enemyComponent = other.GetComponent<Health>();
-                enemyComponent.TakeDamage(stats.atkTotal);
+                enemyHealth = other.GetComponent<Health>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(stats.atkTotal);
+                }
                 Destroy(gameObject);
             }
-            else if ((other.gameObject.CompareTag("Terrain")))
-            {
-                Destroy(gameObject);
-            }
+        }
+        if ((other.gameObject.CompareTag("Terrain")))
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -10,15 +10,14 @@ public class FindNearest
     public float detectDistance = 10f;
 
     private List<GameObject> enemiesInRange = new List<GameObject>();
-    private List<string> tagList = new List<string>();
     private GameObject targetEnemy;
+    private bool isPlayer;
 
-    public FindNearest(Transform gameObject, string tag)
+    public FindNearest(Transform gameObject, string tag, bool isplayer)
     {
-        tagList.Add("Object");
-        tagList.Add("enemyTag");
         enemyTag = tag;
         objectPos = gameObject;
+        isPlayer = isplayer;
     }
 
 
@@ -63,12 +62,15 @@ public class FindNearest
                 enemiesInRange.Add(enemy);
             }
         }
-        foreach (GameObject obj in objects)
+        if (isPlayer)
         {
-            float distanceToObj = Vector3.Distance(objectPos.position, obj.transform.position);
-            if (distanceToObj <= detectDistance)
+            foreach (GameObject obj in objects)
             {
-                enemiesInRange.Add(obj);
+                float distanceToObj = Vector3.Distance(objectPos.position, obj.transform.position);
+                if (distanceToObj <= detectDistance)
+                {
+                    enemiesInRange.Add(obj);
+                }
             }
         }
     }

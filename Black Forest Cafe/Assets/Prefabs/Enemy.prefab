@@ -38,7 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 107
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1849573990587002699
 SpriteRenderer:
@@ -258,6 +258,7 @@ MonoBehaviour:
   item: {fileID: 1648862666200862422, guid: 274b9976fe2e8ea488ed18826aa13fcd, type: 3}
   health: 0
   maxHealth: 5
+  isRanged: 0
 --- !u!114 &-4547472062918310567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +276,9 @@ MonoBehaviour:
   maxHealth: 10
   hitMaterial: {fileID: 2100000, guid: 693890dabffd2134c93b12ecb3e261a9, type: 2}
   spriteMaterial: {fileID: 2100000, guid: 29e04729d91a63b4280fa5f17751e948, type: 2}
+  timer: 0
   canTakeDmg: 1
+  healthBar: {fileID: 0}
 --- !u!114 &-2161241320573929766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,11 +291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6eb4ab064120174ebe603d9647f323a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  armor: 2
-  moveSpeed: 6
+  health: 6
+  armor: 0
+  moveSpeed: 3
   dashSpeed: 0
-  attackRange: 10
+  attackRange: 8
   attackInterval: 0.5
   dropChance: 0.5
   atkDamage: 2
