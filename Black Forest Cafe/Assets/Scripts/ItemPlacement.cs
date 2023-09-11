@@ -60,7 +60,7 @@ public class ItemPlacement
     }
 
 
-    public List<Vector2Int> GetRandomSpotsForEnemies(HashSet<Vector2Int> floorPositions, int count)
+    public List<Vector2Int> GetRandomSpotsForEnemies(HashSet<Vector2Int> floorPositions, int count) //return x amount of random enemy spots from floor tile list
     {
         List<Vector2Int> randomSpots = new List<Vector2Int>();
 

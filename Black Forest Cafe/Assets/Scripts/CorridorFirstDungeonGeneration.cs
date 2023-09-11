@@ -9,6 +9,7 @@ using static CorridorFirstDungeonGenerator;
 
 public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 {
+   
     [SerializeField]
     private int corridorLength = 14, corridorCount = 5;
     [SerializeField]
@@ -16,10 +17,14 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     private float roomPercent = 0.8f;
 
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> rangedEnemiesDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>(); //ranged enemies (room position, floor positions)
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> meleeEnemiesDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>(); //^^
     [SerializeField]
     private GameObject barrelPrefab;
     [SerializeField]
     private GameObject enemyPrefab;
+    [SerializeField]
+    private GameObject batPrefab;
     [SerializeField]
     private GameObject chestPrefab;
     [SerializeField]
@@ -50,6 +55,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     {
         EventManager.Instance.generateEvent.Invoke();
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> rangedPositions = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> meleePositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
 
         //List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
@@ -65,7 +72,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
         floorPositions.UnionWith(roomPositions);
 
-        for (int i = 0; i < corridors.Count; i++) 
+        for (int i = 0; i < corridors.Count; i++) //generating each room
         {
             corridors[i] = IncreaseCorridorSizeByOne(corridors[i]);
             floorPositions.UnionWith(corridors[i]);
@@ -146,10 +153,27 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
         if (roomKind.TryGetValue(RoomType.Enemy, out HashSet<Vector2Int> enemyFloors)) //returns all possible enemy floors
         {
-            enemySpots = enemyFloors.ToList();
+            enemySpots = enemyFloors.ToList(); //list of all enemy floors
         }
 
-        foreach (KeyValuePair<Vector2Int, HashSet<Vector2Int>> entry in roomsDictionary)
+        foreach (KeyValuePair<Vector2Int, HashSet<Vector2Int>> entry in rangedEnemiesDictionary)
+        {
+            foreach (var position in enemySpots)
+            {
+                if (entry.Value.Contains(position))
+                {
+                    ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
+                    enemyPlaces = itemPlacement.GetRandomSpotsForEnemies(entry.Value, 2);
+
+                    foreach (var enemyPosition in enemyPlaces) //enemyPlaces is vector2 with x and y
+                    {
+                        Instantiate(batPrefab, new Vector3(enemyPosition.x + 0.5f, enemyPosition.y + 0.5f, 0), Quaternion.identity);
+                    }
+                }
+            }
+        }
+
+        foreach (KeyValuePair<Vector2Int, HashSet<Vector2Int>> entry in meleeEnemiesDictionary)
         {
             foreach (var position in enemySpots)
             {
@@ -171,13 +195,14 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     }
 
 
-    private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
+    private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors) //make rooms
     {
         foreach (var position in deadEnds)
         {
             if (roomFloors.Contains(position) == false) //real dead end
             {
                 var room = RunRandomWalk(randomWalkParameters, position);
+                
                 roomFloors.UnionWith(room);
             }
         }
@@ -218,13 +243,19 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         foreach (var roomPosition in roomsToCreate) //room number
         {
             var floorPositions = RunRandomWalk(randomWalkParameters, roomPosition);
-
+            var rangedEnemyPositions = RunRandomWalk(enemyRangedWalkParameters, roomPosition);
+            var meleeEnemyPositions = RunRandomWalk(enemyMeleeWalkParameters, roomPosition);
+            rangedEnemiesDictionary[roomPosition] = rangedEnemyPositions;
+            meleeEnemiesDictionary[roomPosition] = meleeEnemyPositions;
+            floorPositions.UnionWith(rangedEnemyPositions);
+            floorPositions.UnionWith(meleeEnemyPositions);
             SaveRoomData(roomPosition, floorPositions); //room number, floortile locations
             roomPosi.UnionWith(floorPositions); //avoid repetitions in collection
         }
         //AddEnemies(roomPositions);
         return roomPosi;
     }
+
 
 
     private void SaveRoomData(Vector2Int roomPosition, HashSet<Vector2Int> floorPositions)

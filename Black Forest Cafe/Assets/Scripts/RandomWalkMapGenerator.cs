@@ -10,11 +10,17 @@ public class RandomWalkMapGenerator : AbstractMapGenerator //inherits from
 
     [SerializeField]
     protected SimpleRandomWalkData randomWalkParameters; //allow us to swap diff parameters
+    [SerializeField]
+    protected SimpleRandomWalkData enemyRangedWalkParameters;
+    [SerializeField]
+    protected SimpleRandomWalkData enemyMeleeWalkParameters;
 
-
-    protected override void RunProceduralGeneration() 
+    protected override void RunProceduralGeneration() //plus generate enemy positions and stuff
     {
         HashSet<Vector2Int> floorPositions = RunRandomWalk(randomWalkParameters, startPosition);
+        HashSet<Vector2Int> rangedPositions = RunRandomWalk(enemyRangedWalkParameters, startPosition);
+        HashSet<Vector2Int> meleePositions = RunRandomWalk(enemyMeleeWalkParameters, startPosition); 
+
         tilemapVisualizer.Clear(); 
         tilemapVisualizer.PaintFloorTiles(floorPositions);
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
@@ -31,6 +37,6 @@ public class RandomWalkMapGenerator : AbstractMapGenerator //inherits from
             if (parameters.startRandomlyEachIteration)
                 currentPosition = floorPositions.ElementAt(Random.Range(0, floorPositions.Count));
         }
-        return floorPositions;
+        return floorPositions; //return vector2int
     }
 }

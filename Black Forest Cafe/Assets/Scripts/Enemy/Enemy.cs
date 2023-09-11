@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     private float spd = 3f;
     private float distance;
     private Vector3 direction;
+    private bool isAggro = false;
     public bool isRanged;
 
     private void Start()
@@ -46,35 +47,39 @@ public class Enemy : MonoBehaviour
     {
         timer += Time.deltaTime;
         distance = Vector2.Distance(transform.position, player.transform.position); //distance is distance from player
-        if (isRanged)
+        if (!isAggro && distance < stats.attackRange)
         {
-            direction = player.transform.position - transform.position;
-            if (distance < stats.attackRange) //within range to attack
+            isAggro = true;
+        }
+        if (isAggro)
+        {
+            if (isRanged)
             {
-                if (direction.x < 0) //face player
+                direction = player.transform.position - transform.position;
+                if (distance < stats.attackRange) //within range to attack
                 {
-                    sr.flipX = true;
+                    if (direction.x < 0) //face player
+                    {
+                        sr.flipX = true;
+                    }
+                    else
+                    {
+                        sr.flipX = false;
+                    }
+                    if (timer >= stats.attackInterval) //attack player
+                    {
+                        timer = 0;
+                        autoShooting.Shoot();
+                        rb.velocity = new Vector2(0, 0);
+                    }
+
                 }
                 else
                 {
-                    sr.flipX = false;
+                    rb.velocity = new Vector2(direction.x, direction.y).normalized * spd;
                 }
-                if (timer >= stats.attackInterval) //attack player
-                {
-                    timer = 0;
-                    autoShooting.Shoot();
-                    rb.velocity = new Vector2(0, 0);
-                }
-
             }
             else
-            {
-                rb.velocity = new Vector2(direction.x, direction.y).normalized * spd;
-            }
-        }
-        else
-        {
-            if (distance < stats.attackRange) //within range
             {
                 direction = player.transform.position - transform.position;
                 if (direction.x < 0)
@@ -86,10 +91,6 @@ public class Enemy : MonoBehaviour
                     sr.flipX = false;
                 }
                 rb.velocity = new Vector2(direction.x, direction.y).normalized * spd;
-            }
-            else
-            {
-                rb.velocity = new Vector2(0, 0);
             }
         }
         //Vector2 direction = player.transform.position;
