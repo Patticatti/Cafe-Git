@@ -79,10 +79,13 @@ public class Health : MonoBehaviour
         }
         else
         {
-            timer += Time.deltaTime;
             if (timer > 0.2)
             {
                 sr.material = spriteMaterial;
+            }
+            else
+            {
+                timer += Time.deltaTime;
             }
         }
     }
