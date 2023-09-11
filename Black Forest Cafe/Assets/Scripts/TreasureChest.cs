@@ -29,7 +29,7 @@ public class ChangeSpriteOnClick : MonoBehaviour
             {
                 item.GetComponent<ItemDrop>().itemCopy = null;
                 spriteRenderer.sprite = newSprite;
-                GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
+                Level.instance.DropItem(item, transform.position, Quaternion.identity);
                 isClick = true;
                 //newItem.transform.parent = null;
             }

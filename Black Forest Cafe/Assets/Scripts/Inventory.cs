@@ -25,6 +25,13 @@ public class Inventory : MonoBehaviour
     {
         full = (items.Count >= space);
     }
+
+    public void ClearInventory()
+    {
+        items.Clear();
+        onItemChangedCallback.Invoke();
+    }
+
     public void Add(Item item)
     {
         if (item.showInInventory)

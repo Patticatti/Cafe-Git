@@ -26,9 +26,12 @@ public class Enemy : MonoBehaviour
     private Vector3 direction;
     private bool isAggro = false;
     public bool isRanged;
+    [SerializeField]
+    private int genNumber;
 
     private void Start()
     {
+        genNumber = Level.instance.dungeongen;
         stats = GetComponent<Stats>();
         if (isRanged)
         {
@@ -125,8 +128,7 @@ public class Enemy : MonoBehaviour
     {
         if (Random.value <= player.GetComponent<Stats>().dropChance)
         {
-            GameObject newItem = Instantiate(item, transform.position, Quaternion.identity);
-            newItem.transform.parent = null;
+            Level.instance.DropItem(item, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
     }

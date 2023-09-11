@@ -9,7 +9,7 @@ using static CorridorFirstDungeonGenerator;
 
 public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 {
-   
+    private RoomData roomData;
     [SerializeField]
     private int corridorLength = 14, corridorCount = 5;
     [SerializeField]
@@ -19,6 +19,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
     private Dictionary<Vector2Int, HashSet<Vector2Int>> rangedEnemiesDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>(); //ranged enemies (room position, floor positions)
     private Dictionary<Vector2Int, HashSet<Vector2Int>> meleeEnemiesDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>(); //^^
+
+    private GameObject newGameObject;
     [SerializeField]
     private GameObject barrelPrefab;
     [SerializeField]
@@ -33,17 +35,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     public bool generateItems = true;
     public bool generateEnemies = true;
 
-    private Dictionary<RoomType, HashSet<Vector2Int>> roomKind = new Dictionary<RoomType, HashSet<Vector2Int>>()
-    {
-        { RoomType.Empty, new HashSet<Vector2Int>() },
-        { RoomType.Enemy, new HashSet<Vector2Int>() },
-        { RoomType.Random, new HashSet<Vector2Int>() },
-        { RoomType.Treasure, new HashSet<Vector2Int>() },
-        { RoomType.Boss, new HashSet<Vector2Int>() }
-    };
-
     private HashSet<Vector2Int> floorPositions, corridorPositions;
-
 
     protected override void RunProceduralGeneration()
     {
@@ -55,9 +47,8 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
     {
         EventManager.Instance.generateEvent.Invoke();
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
-        HashSet<Vector2Int> rangedPositions = new HashSet<Vector2Int>();
-        HashSet<Vector2Int> meleePositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
+        roomData = new RoomData();
 
         //List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
         List<List<Vector2Int>> corridors = new List<List<Vector2Int>>();
@@ -77,9 +68,10 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             corridors[i] = IncreaseCorridorSizeByOne(corridors[i]);
             floorPositions.UnionWith(corridors[i]);
         }
+        Level.instance.GenerateLevel();
         if (generateItems)
         {
-            Instantiate(chestPrefab, new Vector3(0, 3f, 0), Quaternion.identity);
+            Level.instance.Add(chestPrefab, new Vector2Int(0, 3));
             AddBarrels();
         }
         if (generateEnemies)
@@ -140,7 +132,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             barrelSpots = itemPlacement.GetRandomSpotsNearWall(entry.Value, barrelAmnt);
             foreach (var position in barrelSpots)
             {
-                Instantiate(barrelPrefab, new Vector3(position.x + 0.5f, position.y + 0.5f, 0), Quaternion.identity);
+                Level.instance.Add(barrelPrefab, position);
             }
             barrelSpots.Clear();
         }
@@ -151,7 +143,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         List<Vector2Int> enemySpots = new List<Vector2Int>();
         List<Vector2Int> enemyPlaces = new List<Vector2Int>();
 
-        if (roomKind.TryGetValue(RoomType.Enemy, out HashSet<Vector2Int> enemyFloors)) //returns all possible enemy floors
+        if (roomData.roomKind.TryGetValue(RoomType.Enemy, out HashSet<Vector2Int> enemyFloors)) //returns all possible enemy floors
         {
             enemySpots = enemyFloors.ToList(); //list of all enemy floors
         }
@@ -167,7 +159,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
                     foreach (var enemyPosition in enemyPlaces) //enemyPlaces is vector2 with x and y
                     {
-                        Instantiate(batPrefab, new Vector3(enemyPosition.x + 0.5f, enemyPosition.y + 0.5f, 0), Quaternion.identity);
+                        Level.instance.Add(batPrefab, enemyPosition);
                     }
                 }
             }
@@ -179,12 +171,14 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             {
                 if (entry.Value.Contains(position))
                 {
+                    List<Vector2Int> meleeSpots = entry.Value.Except(enemyPlaces).ToList();
+                    HashSet<Vector2Int> meleePlaces = new HashSet<Vector2Int>(meleeSpots);
                     ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
-                    enemyPlaces = itemPlacement.GetRandomSpotsForEnemies(entry.Value, 3);
+                    enemyPlaces = itemPlacement.GetRandomSpotsForEnemies(meleePlaces, 3); //returns list of spots
 
                     foreach (var enemyPosition in enemyPlaces) //enemyPlaces is vector2 with x and y
                     {
-                        Instantiate(enemyPrefab, new Vector3(enemyPosition.x + 0.5f, enemyPosition.y + 0.5f, 0), Quaternion.identity);
+                        Level.instance.Add(enemyPrefab, enemyPosition);
                     }
                 }
             }
@@ -193,6 +187,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         enemySpots.Clear();
         enemyPlaces.Clear();
     }
+
 
 
     private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors) //make rooms
@@ -266,11 +261,16 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
     private void ClearRoomKindData()
     {
-        roomKind.Clear();
+        foreach (KeyValuePair<RoomType, HashSet<Vector2Int>> pair in roomData.roomKind)
+        {
+            pair.Value.Clear(); // Clear the HashSet<Vector2Int> for each RoomType
+        }
     }
 
     private void ClearRoomData()
     {
+        meleeEnemiesDictionary.Clear();
+        rangedEnemiesDictionary.Clear();
         roomsDictionary.Clear();
         //roomColors.Clear();
     }
@@ -300,17 +300,17 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
                     floorPositions.UnionWith(corridor);
                     if (i == 0)
                     {
-                        roomKind[RoomType.Empty].Add(currentPosition);
+                        roomData.roomKind[RoomType.Empty].Add(currentPosition);
                     }
                     else if (i == 1)
                     {
                         if (corridorAmnt < (corridorCount))
                         {
-                            roomKind[RoomType.Enemy].Add(currentPosition);
+                            roomData.roomKind[RoomType.Enemy].Add(currentPosition);
                         }
                         else
                         {
-                            roomKind[RoomType.Boss].Add(currentPosition);
+                            roomData.roomKind[RoomType.Boss].Add(currentPosition);
                         }
                     }
                 }
@@ -322,15 +322,6 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         }
         corridorPositions = new HashSet<Vector2Int>(floorPositions); //use later for prefab placement
         return newCorritors;
-    }
-
-    public enum RoomType
-    {
-        Empty,
-        Enemy,
-        Random,
-        Treasure,
-        Boss
     }
 
 

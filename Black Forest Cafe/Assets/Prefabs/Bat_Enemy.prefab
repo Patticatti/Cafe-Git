@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5269127872427582663}
   - component: {fileID: 7987336527057246325}
   m_Layer: 0
-  m_Name: Bat_Enemy 1
+  m_Name: Bat_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
