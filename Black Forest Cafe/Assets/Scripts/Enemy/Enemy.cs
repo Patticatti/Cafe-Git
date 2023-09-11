@@ -45,7 +45,6 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
         distance = Vector2.Distance(transform.position, player.transform.position); //distance is distance from player
         if (!isAggro && distance < stats.attackRange)
         {
@@ -55,6 +54,7 @@ public class Enemy : MonoBehaviour
         {
             if (isRanged)
             {
+                timer += Time.deltaTime;
                 direction = player.transform.position - transform.position;
                 if (distance < stats.attackRange) //within range to attack
                 {

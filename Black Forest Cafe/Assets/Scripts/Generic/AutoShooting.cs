@@ -24,7 +24,6 @@ public class AutoShooting : MonoBehaviour
         shootingRng = stats.attackRange;
         shootingIntrvl = stats.attackInterval;
         findNearest = new FindNearest(bulletPos, enemyTag, isPlayer);
-        target = findNearest.TargetEnemy();
         anim = GetComponent<Animator>();
     }
 
@@ -36,7 +35,7 @@ public class AutoShooting : MonoBehaviour
 
     public void Shoot()
     {
-        if (target != null)
+        if (target != null || !isPlayer)
         {
             if (isPlayer)
                 anim.SetInteger("state", 6);
