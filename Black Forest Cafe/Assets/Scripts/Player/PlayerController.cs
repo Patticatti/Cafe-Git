@@ -1,26 +1,17 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Interactable focus;
+    #region Singleton
+    public static PlayerController instance;
 
-    private void Update()
+    void Awake()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if (interactable != null ) 
-            {
-                SetFocus(interactable);
-            }
-        }
+        instance = this;
     }
+    #endregion
 
-    void SetFocus(Interactable newFocus)
-    {
-        focus = newFocus;
-    }
+    public bool inCombat;
 }
-*/

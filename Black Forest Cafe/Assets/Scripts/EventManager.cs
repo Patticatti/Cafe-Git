@@ -10,11 +10,14 @@ public class EventManager : MonoBehaviour
 
     public UnityEvent destroyEntities;
 
+    public UnityEvent aggroEnemies;
+
     public EventManager()
     {
         if (Instance == null)
         {
             Instance = this;
+            aggroEnemies = new UnityEvent();
             generateEvent = new UnityEvent();
             destroyEntities = new UnityEvent();
         }

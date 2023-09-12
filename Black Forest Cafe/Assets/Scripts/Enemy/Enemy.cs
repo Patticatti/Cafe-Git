@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sr;
     [SerializeField]
     public GameObject item;
+
     private Stats stats; //self enemy stats
     private AutoShooting autoShooting;
 
@@ -24,9 +25,9 @@ public class Enemy : MonoBehaviour
     private float spd = 3f;
     private float distance;
     private Vector3 direction;
-    private bool isAggro = false;
+    public bool isAggro = false;
     public bool isRanged;
-    [SerializeField]
+    public int groupNumber;
     private int genNumber;
 
     private void Start()
@@ -43,15 +44,16 @@ public class Enemy : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         health = maxHealth;
         spd = stats.moveSpeed;
-        EventManager.Instance.generateEvent.AddListener(Destroy);
+        //EventManager.Instance.generateEvent.AddListener(Destroy);
     }
 
     private void Update()
     {
         distance = Vector2.Distance(transform.position, player.transform.position); //distance is distance from player
-        if (!isAggro && distance < stats.attackRange)
+        if (!isAggro && (distance < stats.attackRange || health != maxHealth)) //only triggers when not aggrod, and when hit/in range
         {
             isAggro = true;
+            Level.instance.AggroGroup(groupNumber);
         }
         if (isAggro)
         {

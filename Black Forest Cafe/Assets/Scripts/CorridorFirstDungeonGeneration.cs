@@ -53,7 +53,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
         //List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
         List<List<Vector2Int>> corridors = new List<List<Vector2Int>>();
 
-        corridors = CreateCorridors(corridors, floorPositions, potentialRoomPositions, 0, startPosition);
+        corridors = CreateCorridors(corridors, floorPositions, potentialRoomPositions, 0, new Vector2Int(0,0));
 
         HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions); //rooms
 
@@ -140,6 +140,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
     private void AddEnemies()
     {
+        int groupNo = 0;
         List<Vector2Int> enemySpots = new List<Vector2Int>();
         List<Vector2Int> enemyPlaces = new List<Vector2Int>();
 
@@ -154,23 +155,25 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
             {
                 if (entry.Value.Contains(position))
                 {
+                    groupNo++;
                     ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
                     enemyPlaces = itemPlacement.GetRandomSpotsForEnemies(entry.Value, 2);
 
                     foreach (var enemyPosition in enemyPlaces) //enemyPlaces is vector2 with x and y
                     {
-                        Level.instance.Add(batPrefab, enemyPosition);
+                        Level.instance.Add(batPrefab, enemyPosition, groupNo);
                     }
                 }
             }
         }
-
+        groupNo = 0;
         foreach (KeyValuePair<Vector2Int, HashSet<Vector2Int>> entry in meleeEnemiesDictionary)
         {
             foreach (var position in enemySpots)
             {
                 if (entry.Value.Contains(position))
                 {
+                    groupNo++;
                     List<Vector2Int> meleeSpots = entry.Value.Except(enemyPlaces).ToList();
                     HashSet<Vector2Int> meleePlaces = new HashSet<Vector2Int>(meleeSpots);
                     ItemPlacement itemPlacement = new ItemPlacement(entry.Value);
@@ -178,7 +181,7 @@ public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
 
                     foreach (var enemyPosition in enemyPlaces) //enemyPlaces is vector2 with x and y
                     {
-                        Level.instance.Add(enemyPrefab, enemyPosition);
+                        Level.instance.Add(enemyPrefab, enemyPosition, groupNo);
                     }
                 }
             }
