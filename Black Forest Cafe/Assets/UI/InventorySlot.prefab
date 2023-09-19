@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 830581630646870859}
   - component: {fileID: 3270708549895210165}
   - component: {fileID: 1718173704819986918}
+  - component: {fileID: 9048629886736017128}
   m_Layer: 5
   m_Name: ItemButton
   m_TagString: Untagged
@@ -329,7 +330,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 8, y: 8, z: 8, w: 8}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -400,3 +401,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9048629886736017128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8311433651631539065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c9e2f1792a89a4ca56bc5f27ee5e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: fungus

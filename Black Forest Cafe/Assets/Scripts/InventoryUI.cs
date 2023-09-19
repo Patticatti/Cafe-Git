@@ -24,6 +24,7 @@ public class InventoryUI : MonoBehaviour
         {
             UpdateUI();
             inventoryUI.SetActive(!inventoryUI.activeSelf);
+            TooltipManager.instance.gameObject.SetActive(false);
         }
     }
 

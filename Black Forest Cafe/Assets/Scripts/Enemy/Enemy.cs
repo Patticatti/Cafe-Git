@@ -59,10 +59,10 @@ public class Enemy : MonoBehaviour
         {
             if (isRanged)
             {
-                timer += Time.deltaTime;
                 direction = player.transform.position - transform.position;
                 if (distance < stats.attackRange) //within range to attack
                 {
+                    timer += Time.deltaTime;
                     if (direction.x < 0) //face player
                     {
                         sr.flipX = true;

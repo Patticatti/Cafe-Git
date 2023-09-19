@@ -64,9 +64,10 @@ public class Level : MonoBehaviour
         //itemParent = itemParentObject.transform;
     }
 
-    public void DropItem(GameObject item, Vector3 position, Quaternion rotation)
+    public void DropItem(GameObject item, Vector3 position, Quaternion rotation, bool pickedUp = true)
     {
         newItem = Instantiate(item, position, rotation);
+        newItem.GetComponent<ItemDrop>().canBePickedUp = pickedUp;
         newItem.transform.parent = gameObjParent;
         itemsList.Add(newItem);
     }

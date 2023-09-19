@@ -35,7 +35,7 @@ public class InventorySlot : MonoBehaviour
     public void RemoveItem()
     {
         itemDropComponent.itemCopy = item;
-        Level.instance.DropItem(itemDrop, Inventory.instance.playerPosition.position, Quaternion.identity);
+        Level.instance.DropItem(itemDrop, Inventory.instance.playerPosition.position, Quaternion.identity, false);
         ClearSlot();
         RemoveItemFromInventory();
         Inventory.instance.onItemChangedCallback.Invoke();
@@ -72,6 +72,7 @@ public class InventorySlot : MonoBehaviour
     public void OnApplicationQuit()
     {
         item = null;
+        itemDropComponent.canBePickedUp = true;
         itemDropComponent.itemCopy = null;
     }
 

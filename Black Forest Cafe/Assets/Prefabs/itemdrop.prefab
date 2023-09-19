@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9103248512140696055}
   - component: {fileID: -3684700231103204568}
   - component: {fileID: 4833928141598816357}
+  - component: {fileID: -405223137043167835}
   m_Layer: 0
   m_Name: itemdrop
   m_TagString: Untagged
@@ -102,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemCopy: {fileID: 0}
   sList: {fileID: 0}
+  pickupTimer: 0
+  canBePickedUp: 1
 --- !u!61 &9103248512140696055
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -185,3 +188,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Offset: {x: 0, y: -1, z: 0}
+--- !u!114 &-405223137043167835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648862666200862422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6eb4ab064120174ebe603d9647f323a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  armor: 0
+  moveSpeed: 0
+  dashSpeed: 0
+  attackRange: 0
+  attackInterval: 0
+  dropChance: 0
+  atkDamage: 0
+  atkIncrease: 0
+  atkTotal: 0
+  projectileAmnt: 0
+  projectileBounces: 0
+  iFrames: 0

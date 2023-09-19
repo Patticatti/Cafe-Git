@@ -10,7 +10,7 @@ public class ItemDrop : MonoBehaviour
     private Vector3 originalPosition;
     private bool isMovingUp = true;
     private bool isWaiting = false;
-    private bool isClicked = false;
+    private bool isAdded = false;
     private SpriteRenderer sr;
     private Sprite randomSprite;
 
@@ -23,22 +23,25 @@ public class ItemDrop : MonoBehaviour
 
     private const float shrinkDuration = 0.5f;
 
+    private float distance;
     private float timer = 0f;
+    public float pickupTimer = 0f;
     private float despawnTimer = 0f;
+
+    public bool canBePickedUp = true;
 
 
     private void Start()
     {
         player = Inventory.instance.player;
         playerPosition = player.transform;
-        stats = player.GetComponent<Stats>();
+        stats = GetComponent<Stats>();
 
         sList = GetComponent<SpriteListHolder>();
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
         if (itemCopy == null)
         {
-            //Debug.Log("newrandom item");
             itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
             randomSprite = sList.GetRandomSprite();
             itemCopy.icon = randomSprite;
@@ -54,7 +57,69 @@ public class ItemDrop : MonoBehaviour
 
     private void Update()
     {
-        if (isClicked)
+        if (Inventory.instance.full)
+            canBePickedUp = false;
+        if (!isAdded)
+        {
+            distance = Vector2.Distance(transform.position, player.transform.position);
+            pickupTimer += Time.deltaTime;
+            if (distance <= 5f) //close to player
+            {
+                if (canBePickedUp)
+                {
+                    Inventory.instance.Add(itemCopy);
+                    isAdded = true;
+                    isMovingUp = true;
+                    isWaiting = false;
+                    timer = 0f;
+                }
+                else //not picked up
+                {
+                    if (pickupTimer >= 5f)
+                    {
+                        canBePickedUp = true;
+                    }
+                }
+            }
+            timer += Time.deltaTime;
+            if (isWaiting)
+            {
+                if (timer >= waitDuration)
+                {
+                    isWaiting = false;
+                    timer = 0f;
+                }
+            }
+            else //floating anim
+            {
+                if (isMovingUp)
+                {
+                    transform.position = Vector3.Lerp(originalPosition, originalPosition + new Vector3(0f, moveDistance, 0f), timer / moveDuration);
+                    if (timer >= moveDuration)
+                    {
+                        timer = 0f;
+                        isMovingUp = false;
+                        isWaiting = true;
+                    }
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(originalPosition + new Vector3(0f, moveDistance, 0f), originalPosition, timer / moveDuration);
+                    if (timer >= moveDuration)
+                    {
+                        timer = 0f;
+                        isMovingUp = true;
+                        isWaiting = true;
+                    }
+                }
+            }
+            despawnTimer += Time.deltaTime;
+            if (despawnTimer > 180)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else //is clicked
         {
             timer += Time.deltaTime;
             float t = timer / shrinkDuration;
@@ -68,49 +133,11 @@ public class ItemDrop : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (isWaiting)
-        {
-            timer += Time.deltaTime;
-            if (timer >= waitDuration)
-            {
-                isWaiting = false;
-                timer = 0f;
-            }
-        }
-        else
-        {
-            timer += Time.deltaTime;
-
-            if (isMovingUp)
-            {
-                transform.position = Vector3.Lerp(originalPosition, originalPosition + new Vector3(0f, moveDistance, 0f), timer / moveDuration);
-                if (timer >= moveDuration)
-                {
-                    timer = 0f;
-                    isMovingUp = false;
-                    isWaiting = true;
-                }
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(originalPosition + new Vector3(0f, moveDistance, 0f), originalPosition, timer / moveDuration);
-                if (timer >= moveDuration)
-                {
-                    timer = 0f;
-                    isMovingUp = true;
-                    isWaiting = true;
-                }
-            }
-        }
-        despawnTimer += Time.deltaTime;
-        if (despawnTimer > 180)
-        {
-            Destroy(gameObject);
-        }
     }
 
 
 
+    /*
     private void OnMouseDown()
     {
         if (Input.GetMouseButtonDown(0) && !Inventory.instance.full && !isClicked)
@@ -121,7 +148,7 @@ public class ItemDrop : MonoBehaviour
             isWaiting = false;
             timer = 0f;
         }
-    }
+    }*/
 
     private void Destroy()
     {

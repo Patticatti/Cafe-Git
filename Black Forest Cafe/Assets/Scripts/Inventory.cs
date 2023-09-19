@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     public OnItemChanged onItemChangedCallback;
     public Transform playerPosition;
     public GameObject player;
+    public GameObject itemDrop;
     public bool full = false;
 
     public int space = 14; //invspace

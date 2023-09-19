@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float dirX = 0f;
     private float dirY = 0f;
-    private float modifierr = 1f;
 
     private Vector2 mousePosition;
     private Vector2 moveDirection;
@@ -49,19 +48,11 @@ public class PlayerMovement : MonoBehaviour
         }
         dirX = Input.GetAxisRaw("Horizontal");
         dirY = Input.GetAxisRaw("Vertical");
-        if (dirX != 0f && dirY != 0f)
-        {
-            modifierr = 0.707f;
-        }
-        else
-        {
-            modifierr = 1f;
-        }
         if (Input.GetKey(KeyCode.Space) && canDash)
         {
             StartCoroutine(Dash());
         }
-        moveDirection = new Vector2(dirX, dirY).normalized * modifierr;
+        moveDirection = new Vector2(dirX, dirY).normalized;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (dirX == 0f && dirY == 0f)
         {

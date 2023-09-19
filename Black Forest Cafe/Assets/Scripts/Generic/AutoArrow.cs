@@ -16,6 +16,7 @@ public class AutoArrow : MonoBehaviour
     private Vector3 direction;
     private Health enemyHealth;
     private bool triggered = false;
+    private float dmg;
 
 
     private void Start()
@@ -49,7 +50,10 @@ public class AutoArrow : MonoBehaviour
                 enemyHealth = other.GetComponent<Health>();
                 if (enemyHealth != null)
                 {
-                    enemyHealth.TakeDamage(stats.atkTotal);
+                    dmg = stats.atkTotal;
+                    if (Random.value <= stats.dropChance)
+                        dmg = dmg * 2;
+                    enemyHealth.TakeDamage(dmg);
                 }
                 Destroy(gameObject);
             }
