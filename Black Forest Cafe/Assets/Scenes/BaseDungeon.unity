@@ -17479,6 +17479,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6232761920079917649, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
   m_PrefabInstance: {fileID: 1563226490}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1053547522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8311433651631539065, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
+  m_PrefabInstance: {fileID: 1347210158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1053881764
 GameObject:
   m_ObjectHideFlags: 0
@@ -18235,22 +18240,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1900687070}
     m_Modifications:
-    - target: {fileID: 3270708549895210165, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
-      propertyPath: m_RaycastPadding.w
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3270708549895210165, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
-      propertyPath: m_RaycastPadding.x
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3270708549895210165, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
-      propertyPath: m_RaycastPadding.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3270708549895210165, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
-      propertyPath: m_RaycastPadding.z
-      value: 8
-      objectReference: {fileID: 0}
+    - target: {fileID: -1235981313850288171, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
+      propertyPath: itemButton
+      value: 
+      objectReference: {fileID: 1053547522}
     - target: {fileID: 6232761920079917649, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18338,10 +18331,6 @@ PrefabInstance:
     - target: {fileID: 7111874408742670810, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
       propertyPath: m_Name
       value: InventorySlot (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9048629886736017128, guid: 200be7344419da644a4cf1ac0c7a5ef5, type: 3}
-      propertyPath: message
-      value: fungus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19660,8 +19649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6eb4ab064120174ebe603d9647f323a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  armor: 2
+  health: 100
+  armor: 10
   moveSpeed: 6
   dashSpeed: 0
   attackRange: 10
@@ -19669,12 +19658,11 @@ MonoBehaviour:
   critRate: 0.05
   critDmg: 2
   dropChance: 1
-  atkDamage: 1
+  atkDamage: 8
   atkIncrease: 1
   atkTotal: 0
   projectileAmnt: 1
   projectileBounces: 0
-  defaultStats: 
   iFrames: 0
 --- !u!114 &1891994400
 MonoBehaviour:

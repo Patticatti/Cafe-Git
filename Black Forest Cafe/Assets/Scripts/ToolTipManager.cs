@@ -38,12 +38,14 @@ public class TooltipManager : MonoBehaviour
     public void SetAndShowToolTip(string message)
     {
         gameObject.SetActive(true);
-        textComponent.text = message;
+        if (message != null)
+        {
+            textComponent.text = message;
+        }
     }
 
     public void HideToolTip()
     {
         gameObject.SetActive(false);
-        textComponent.text = string.Empty;
     }
 }

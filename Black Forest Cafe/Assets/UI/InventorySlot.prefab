@@ -265,6 +265,7 @@ MonoBehaviour:
   icon: {fileID: 1830533152439858794}
   playerPosition: {fileID: 0}
   removeButton: {fileID: 1932520982142733679}
+  itemButton: {fileID: 8311433651631539065}
   item: {fileID: 0}
 --- !u!1 &8311433651631539065
 GameObject:

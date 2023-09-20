@@ -7,15 +7,12 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string message = "defailt";
     private Stats stats;
-
-    private void Start()
-    {
-
-    }
+    public bool isShowing = false;
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        TooltipManager.instance.SetAndShowToolTip(message);
+        if (isShowing)
+            TooltipManager.instance.SetAndShowToolTip(message);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)

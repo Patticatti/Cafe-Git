@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class ItemDrop : MonoBehaviour
+public class ItemDrop : ItemStatGen
 {
     public Item itemCopy;
     public SpriteListHolder sList;
@@ -40,11 +40,12 @@ public class ItemDrop : MonoBehaviour
         sList = GetComponent<SpriteListHolder>();
         sr = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
-        if (itemCopy == null)
+        if (itemCopy == null) //generate random shit
         {
             itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
             randomSprite = sList.GetRandomSprite();
             itemCopy.icon = randomSprite;
+            itemCopy.message = GenerateMessage();
             itemCopy.itemType = sList.itemKind;
             sr.sprite = randomSprite;
         }

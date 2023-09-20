@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9103248512140696055}
   - component: {fileID: -3684700231103204568}
   - component: {fileID: 4833928141598816357}
-  - component: {fileID: -405223137043167835}
+  - component: {fileID: -3358983390646676926}
   m_Layer: 0
   m_Name: itemdrop
   m_TagString: Untagged
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Offset: {x: 0, y: -1, z: 0}
---- !u!114 &-405223137043167835
+--- !u!114 &-3358983390646676926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1648862666200862422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6eb4ab064120174ebe603d9647f323a, type: 3}
+  m_Script: {fileID: 11500000, guid: ae0763c250dd6344191890f43e0f77a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
@@ -206,6 +206,8 @@ MonoBehaviour:
   dashSpeed: 0
   attackRange: 0
   attackInterval: 0
+  critRate: 0
+  critDmg: 0
   dropChance: 0
   atkDamage: 0
   atkIncrease: 0
@@ -213,3 +215,5 @@ MonoBehaviour:
   projectileAmnt: 0
   projectileBounces: 0
   iFrames: 0
+  defaultStats: 
+  text: 

@@ -12,12 +12,16 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Transform playerPosition;
     public Button removeButton;
-
+    [SerializeField]
+    private GameObject itemButton;
+    
+    public Tooltip tmpText;
     public Item item;  // Current item in the slot
 
     public void Awake()
     {
         itemDropComponent = itemDrop.GetComponent<ItemDrop>();
+        tmpText = itemButton.GetComponent<Tooltip>(); //gets the copied ver of item drop
         removeButton.interactable = false;
     }
 
@@ -30,6 +34,14 @@ public class InventorySlot : MonoBehaviour
         icon.sprite = item.icon;
         icon.enabled = true;
         removeButton.interactable = true;
+        tmpText.isShowing = true;
+        ChangeMessage();
+    }
+
+    private void ChangeMessage()
+    {
+        tmpText.message = item.message;
+
     }
 
     public void RemoveItem()
@@ -45,6 +57,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (item != null)
         {
+            tmpText.isShowing = false;
             itemDropComponent.itemCopy = null;
             icon.sprite = null;
             icon.enabled = false;
