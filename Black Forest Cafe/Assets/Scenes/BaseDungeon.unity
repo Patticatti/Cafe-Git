@@ -1931,9 +1931,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 1183380260}
   wallTilemap: {fileID: 15541510}
-  floorTile1: {fileID: 11400000, guid: d852be8dcfd188d4fbea2a35be90454d, type: 2}
-  floorTile2: {fileID: 11400000, guid: 8af5e96b5efe8dc4db082b4599fdb628, type: 2}
-  floorTile3: {fileID: 11400000, guid: 86576ffab945240459736904ad256679, type: 2}
+  floorTile1: {fileID: 11400000, guid: 6bba41295a608934bbcf6ad6909cc0ad, type: 2}
+  floorTile2: {fileID: 11400000, guid: 00eafbe51fb90e14893eb3d531294ca7, type: 2}
+  floorTile3: {fileID: 11400000, guid: db06b3d73e1722740abf573b9d46a171, type: 2}
   wallTop: {fileID: 11400000, guid: 2cbd68366f849a347b561336e40b3614, type: 2}
   wallSideRight: {fileID: 11400000, guid: 89201853e7834574984ab37776f88a77, type: 2}
   wallSiderLeft: {fileID: 11400000, guid: bde5b8e6cd6f9784bbe734263884749e, type: 2}
@@ -19560,7 +19560,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1690655361
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 891196072, guid: 52a092d67a3503c4eb3919f8853c5cfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -19581,7 +19581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891994386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.46, y: -0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19624,7 +19624,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891994386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bde1b92d96bc63e41adb3b29e261a243, type: 3}
   m_Name: 
@@ -19671,7 +19671,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891994386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4919f3e274635a4e9fa98c201df6952, type: 3}
   m_Name: 

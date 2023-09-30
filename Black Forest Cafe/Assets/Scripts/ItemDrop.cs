@@ -45,7 +45,8 @@ public class ItemDrop : ItemStatGen
             itemCopy = (Item)ScriptableObject.CreateInstance(typeof(Item));
             randomSprite = sList.GetRandomSprite();
             itemCopy.icon = randomSprite;
-            itemCopy.message = GenerateMessage();
+            itemCopy.message = GenerateMessage(); //takes from itemstatgen method
+            itemCopy.type = 1;
             itemCopy.itemType = sList.itemKind;
             sr.sprite = randomSprite;
         }

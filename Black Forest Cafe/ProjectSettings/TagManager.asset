@@ -54,6 +54,12 @@ TagManager:
   - name: Tree
     uniqueID: 2565762613
     locked: 0
+  - name: cafe
+    uniqueID: 18663165
+    locked: 0
+  - name: Bushes
+    uniqueID: 3921494213
+    locked: 0
   - name: Enemy
     uniqueID: 1721701441
     locked: 0

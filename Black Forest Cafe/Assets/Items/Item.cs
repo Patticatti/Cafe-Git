@@ -10,6 +10,7 @@ public class Item : ScriptableObject
     public int itemType;
     public bool isEquipped = false;
     public string message;
+    public int type = 0; //0 is ingredient, 1 is accessory
 
     // Called when the item is pressed in the inventory
     public virtual void Use()
@@ -29,6 +30,11 @@ public class Item : ScriptableObject
             EquipmentUi.instance.Remove(this);
         }
 
+    }
+
+    public string GenerateMessage()
+    {
+         return message;
     }
     /*
     // Call this method to remove the item from inventory
