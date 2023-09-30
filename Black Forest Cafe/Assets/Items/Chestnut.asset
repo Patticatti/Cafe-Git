@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b295f06ba8076d44a9784ba943f7573, type: 3}
   m_Name: Chestnut
   m_EditorClassIdentifier: 
-  name: Acorn
-  icon: {fileID: -1985432520, guid: c4b36e047fe81c94ebd902ca30e0f977, type: 3}
+  name: Chestnut
+  icon: {fileID: 2120656220, guid: c4b36e047fe81c94ebd902ca30e0f977, type: 3}
   isDefaultItem: 0
   showInInventory: 1
   itemType: 0
   isEquipped: 0
-  message: '"A shiny little acorn, known for their distinct woody flavour."'
+  message: '"Sweet and nutty, with an earthy taste."'
+  type: 0
