@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Terrain
+  - Weapon
+  - Object
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Floor
+  - Water
+  - UI
+  - Player
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Ground
+    uniqueID: 698723581
+    locked: 0
+  - name: Walls
+    uniqueID: 1342961151
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Tree
+    uniqueID: 2565762613
+    locked: 0
+  - name: cafe
+    uniqueID: 18663165
+    locked: 0
+  - name: Bushes
+    uniqueID: 3921494213
+    locked: 0
+  - name: Enemy
+    uniqueID: 1721701441
+    locked: 0
+  - name: Player
+    uniqueID: 1690655361
+    locked: 0
+  - name: UI
+    uniqueID: 1533028471
+    locked: 0
