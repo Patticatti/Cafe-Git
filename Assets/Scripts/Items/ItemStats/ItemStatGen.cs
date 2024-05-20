@@ -35,8 +35,8 @@ public class ItemStatGen : Stats
                     text = "attack damage";
                     break;
                 case 3:
-                    atkIncrease = atkIncrease + randVal;
-                    text = "attack increase";
+                    attackInterval = attackInterval * (1 - smallRando);
+                    text = "attack speed";
                     break;
                 case 4:
                     attackInterval = attackInterval * (1 - smallRando);
