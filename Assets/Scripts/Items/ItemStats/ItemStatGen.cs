@@ -26,10 +26,6 @@ public class ItemStatGen : Stats
 
                     text = "health";
                     break;
-                case 1: //armor, 1
-                    armor = armor + randVal;
-                    text = "armor";
-                    break;
                 case 2: //1
                     atkDamage = atkDamage + randVal;
                     text = "attack damage";

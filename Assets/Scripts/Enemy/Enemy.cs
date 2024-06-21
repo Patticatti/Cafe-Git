@@ -138,7 +138,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other) //disappear on hit
     {
         if (other.gameObject == player && playerHealth.canTakeDmg)
-            player.GetComponent<Health>().TakeDamage(stats.atkTotal);
+            player.GetComponent<Health>().TakeDamage(stats.atkDamage);
     }
 }
 // Update is called once per frame
